@@ -1,0 +1,128 @@
+.chat-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    width: 100%;
+    height: 90vh;
+    min-height: 90vh;
+    overflow: hidden;
+    color: white;
+}
+.header, .footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: max-content;
+    position: relative;
+    background-color: #353535af;
+}
+.header h1{
+    margin-bottom: 0;
+    margin-left: 1vw;
+}
+.header {
+    height: 7vh;
+    justify-content: center;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick, .mat-error{
+    color: #590d22;
+}
+
+.mat-mdc-raised-button{
+    background-color: #353535;
+    margin-bottom: 2vh;
+}
+.main-chat-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+}
+.footer{
+    margin-bottom: 0;
+    height: 10vh;
+}
+.users-container, .messages-conteiner{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: auto;
+}
+.users-container{
+    width: 20%;
+    background-color: #202020;
+    
+    align-items: center;
+    
+}
+.messages-container{
+    width: 80%;
+    background-color: white;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.friend-card{
+    background-color: white;
+    width: 70%;
+    height: 4vh;
+    text-align: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.mat-mdc-card{
+    background-color: #D9D9D9;
+    margin-top: 1vh;
+    color: #353535;
+}
+#message-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 95%;
+    align-items: center;
+}
+#user-name-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 70%;
+    height: auto;
+    align-items: center;
+}
+input{
+    margin-left: 1vw;
+    height: 80%;
+    width: 78%;
+    max-height: 80%;
+    overflow: auto;
+    background-color: #353535;
+    color: white;
+}
+#userName{
+    margin: 0;
+    width: 100%;
+    height: 5vh;
+    margin-bottom: 1vh;
+}
+#send-button{
+    margin: 0;
+    width: 15%;
+    height: 6vh;
+    margin-right: auto;
+    margin-left: auto;
+}
+#user-name-form #send-button{
+    margin: 0;
+    margin-bottom: 1vh;
+    height: 4vh;
+}

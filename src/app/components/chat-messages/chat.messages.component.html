@@ -1,0 +1,38 @@
+<div class="chat-container">
+    <div class="header">
+        <h1>{{thisChat.chatName}}</h1>
+    </div>
+    <div class="main-chat-body">
+        <div class="messages-container">
+           <message *ngFor="let message of thisChatMessages" [Message] = "message"></message>
+
+        </div>
+        <div class="users-container" >
+            <h1>Users</h1>
+            <form id="user-name-form">
+                <input type="text" matInput placeholder="  Write user name" [formControl]="userName" id="userName">
+                <button mat-raised-button (click)="addNewUser()" id="send-button"> 
+                    Add
+                </button>
+                <mat-error *ngIf="userError != ''">
+                    {{userError}}
+                </mat-error>
+            </form>
+            <mat-card class="friend-card"  *ngFor="let user of thisChatUsers" [routerLink]="['/user-profile', user.id]">
+                {{user.userName}}
+            </mat-card>
+        </div>
+    </div>
+    <div class="footer">
+        <form id="message-form">
+            <input type="text" matInput placeholder="  Write your message" [formControl]="text">
+            <button mat-raised-button (click)="sendMessage()" id="send-button"> 
+                Send
+            </button>
+            <mat-error *ngIf="messageError != ''">
+                {{messageError}}
+            </mat-error>
+        </form>
+
+    </div>
+</div>

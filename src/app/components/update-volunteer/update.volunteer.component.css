@@ -1,0 +1,90 @@
+#register-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    color: aliceblue;
+    margin-top: 3vh;
+    padding-top: 2vh;
+}
+#header-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+h3{
+    color: aliceblue;
+    font-size: x-large;
+    margin-bottom: 1vh;
+    margin-top: 1.5vh;
+}
+
+#register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    height: auto;
+    color: aliceblue;
+    font-size: medium;
+}
+
+.mat-mdc-form-field{
+    height: 12vh;
+    width: 100%;
+    font-size: x-large;
+}
+
+.mat-mdc-form-field-error{
+    color: #ffe8e4;
+    max-height: 3vh;
+    max-width: 90%;
+    overflow: clip;
+}
+
+::ng-deep .mat-mdc-select-value{
+    font-size: x-large;
+    color: aliceblue;
+}
+
+::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label,
+.mat-mdc-form-field-error[_ngcontent-ng-c3708774464],
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid[_ngcontent-ng-c3708774464] .mat-form-field-outline-thick[_ngcontent-ng-c3708774464],
+.mat-error[_ngcontent-ng-c3708774464],
+::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label{
+    color: #ffe8e4;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder {
+    color: #a8b6b6;
+}
+
+::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--invalid .mdc-text-field__input,
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{
+    color: aliceblue;
+    caret-color: aliceblue;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: #353535;
+}
+#register{
+    margin-top: 1vh;
+    width: 20vw;
+    display: inline-flex;
+    height: 10vh;
+    font-size: medium;
+}
+
+.mat-raised-button{
+    background-color: #353535;
+    margin-bottom: 2vh;
+}
+.mat-form-field-flex{
+    height: 5vh;
+}

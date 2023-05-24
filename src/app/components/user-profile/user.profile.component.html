@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-content>
+        <div class="header">
+            <h1>{{foundUser.userName}}</h1>
+        </div>
+        <p>{{foundUser.firstName}} {{foundUser.lastName}}</p>
+        <p>Phone number: {{foundUser.phoneNumber}}</p>
+        <!-- <button mat-raised-button class="friends-button" (click)="changeFriendsStatus()" [disabled]="friendsCount == 0">Friends
+            <mat-icon *ngIf="!showFriends">expand_more</mat-icon>
+            <mat-icon *ngIf="showFriends">expand_less</mat-icon>
+        </button>
+        <div class="friends-usernames" *ngIf="showFriends">
+            <mat-card class="friend-card"  *ngFor="let userName of userFriends" >User name: {{userName}}</mat-card>
+        </div> -->
+    </mat-card-content>
+</mat-card>

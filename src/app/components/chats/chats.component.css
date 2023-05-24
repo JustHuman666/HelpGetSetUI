@@ -1,0 +1,89 @@
+.mat-mdc-card{
+    background-color: #D9D9D9;
+    margin-top: 1vh;
+    color: #353535;
+    width: 80%;
+}
+.chats-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    color: white;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.header h1, .header p{
+    margin-bottom: 0;
+}
+
+.error-message{
+    text-align: center;
+    margin-top: 10vh;
+    font-size: 9vh;
+    line-height: 10vh;
+}
+.chat-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 2vh;
+    width: 50%;
+    height: 50%;
+    align-items: center;
+}
+
+.mat-mdc-form-field{
+    height: 12vh;
+    width: 100%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.mat-mdc-form-field-error{
+    color: #ffe8e4;
+    max-height: 3vh;
+    max-width: 90%;
+    overflow: clip;
+}
+
+::ng-deep .mat-mdc-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick, .mat-error{
+    color: #590d22;
+}
+
+.mat-mdc-raised-button{
+    background-color: #353535;
+    margin-bottom: 4vh;
+    width: 50%;
+    height: 6vh;
+    margin-top: -2vh;
+}
+
+::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label,
+.mat-mdc-form-field-error[_ngcontent-ng-c3708774464],
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid[_ngcontent-ng-c3708774464] .mat-form-field-outline-thick[_ngcontent-ng-c3708774464],
+.mat-error[_ngcontent-ng-c3708774464],
+::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label{
+    color: #ffe8e4;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder {
+    color: #a8b6b6;
+}
+
+::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--invalid .mdc-text-field__input,
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{
+    color: aliceblue;
+    caret-color: aliceblue;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: #353535;
+}

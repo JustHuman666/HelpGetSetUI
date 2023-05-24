@@ -1,0 +1,57 @@
+#home-container{
+  display: flex;
+  flex-direction: column;
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+#welcome-card{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 90vh;
+  overflow-inline: hidden;
+  justify-content: flex-start;
+}
+
+#welcome-card h1{
+  font-size: 60px;
+  margin-bottom: 1.5vh;
+  margin-top: 4vh;
+}
+
+#welcome-card h2{
+  width: 80%;
+  margin-bottom: 10vh;
+}
+
+#possible-operations{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+  height: 10vh;
+}
+
+#possible-operations mat-icon{
+  height: 55px;
+  width: 100%;
+  font-size: 60px;
+  color: #D9D9D9;
+}
+#line{
+  border: 2px solid white;
+  height: 1px;
+  width: 60%;
+  margin-bottom: 4vh;
+}
+.mat-button:hover{
+  background-color: #D9D9D9;
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 3.5vh;
+  text-align: center;
+}

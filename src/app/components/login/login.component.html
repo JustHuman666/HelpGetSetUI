@@ -1,0 +1,32 @@
+<div  id="home-container">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="login()" id="login-form">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label color="accent">Write all digits of your phone number (after +)</mat-label>
+      <input matInput formControlName="phone"
+            type="tel"
+            required
+            pattern="^\d{6,15}$"
+            placeholder="Phone number">
+            <mat-error>
+              Please, write a valid phone number
+            </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Write your password</mat-label>
+      <input matInput formControlName="password"
+             type="password"
+             required
+             placeholder="Password">
+             <mat-error>
+              Please, write a valid password
+            </mat-error>
+      </mat-form-field>
+      <mat-error *ngIf="loginError!=''">
+        {{loginError}}
+      </mat-error>
+      <button mat-raised-button id="login" [disabled]="!loginForm.valid"> Login </button>
+  </form>
+  <button mat-raised-button id="register" routerLink="/register"> Register </button>
+</div>

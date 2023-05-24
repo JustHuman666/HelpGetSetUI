@@ -1,0 +1,22 @@
+.mat-card{
+    background-color: #D9D9D9;
+    margin-top: 1vh;
+    color: #353535;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.header h1{
+    margin-bottom: 0;
+}
+
+.friends-button{
+    background-color: #284B63;
+}
+.friend-card{
+    background-color: white;
+    width: 50%;
+}

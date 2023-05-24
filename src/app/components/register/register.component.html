@@ -1,0 +1,102 @@
+<div id="header-container">
+    <h3>At first, please, provide some general information.</h3>
+</div>
+<div id="register-container">
+    <form [formGroup]="registerForm" id="register-form">
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>User name:</mat-label>
+            <input matInput id="userName" formControlName="userName"
+                    required>
+                    <mat-error>
+                        Invalid user name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>First name:</mat-label>
+            <input matInput id="firstName" formControlName="firstName" required>
+                    <mat-error>
+                        Invalid first name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Last name:</mat-label>
+            <input matInput id="lastName" formControlName="lastName"
+                    required>
+                    <mat-error>
+                        Invalid last name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Original country:</mat-label>
+            <input matInput id="originalCountry" formControlName="originalCountry"
+                    required>
+                    <mat-error>
+                        Invalid country name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Current country:</mat-label>
+            <input matInput id="currentCountry" formControlName="currentCountry"
+                    required>
+                    <mat-error>
+                        Invalid country name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Birthday:</mat-label>
+            <input matInput id="birthday" formControlName="birthday"
+                    required
+                    type="date"
+                    min="1900-01-01"
+                    [max]="currentDate">
+                    <mat-error>
+                        Invalid date
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Gender:</mat-label>
+            <mat-select  id="gender" formControlName="gender" required>
+                <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
+            </mat-select>
+            <mat-error>
+                Choose a gender
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Write all digits of your phone number (after +):</mat-label>
+            <input matInput id="phoneNumber" formControlName="phoneNumber" 
+                    required
+                    type="tel"
+                    pattern="^\d{6,15}$">
+                    <mat-error>
+                        Invalid phone number
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Password:</mat-label>
+            <input matInput id="password" formControlName="password" 
+                    required 
+                    type="password">
+                    <mat-error>
+                        Invalid password
+                    </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="error!=''">
+            {{error}}
+          </mat-error>
+        <button type="submit" id="register-migrant" mat-raised-button [disabled]="!registerForm.valid" (click)="registerMigrant()"> 
+            Register as migrant
+        </button>
+        <button type="submit" id="register-volunteer" mat-raised-button [disabled]="!registerForm.valid"> 
+            Register as volunteer
+        </button>
+      </form>
+</div>

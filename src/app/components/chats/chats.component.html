@@ -1,0 +1,38 @@
+<div class="chats-container">
+    <p class="error-message" *ngIf="loggedUserChats.length == 0 || chatsError != ''">
+        You do not have any chats yet.
+    </p>
+    <form [formGroup]="chatForm" (ngSubmit)="createNewChat()" class="chat-form">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label color="accent">Write a name for new chat</mat-label>
+          <input matInput formControlName="chatName"
+                type="text"
+                required
+                placeholder="Chat name">
+                <mat-error>
+                  Wrong value
+                </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="formError!=''">
+            {{formError}}
+        </mat-error>
+        <button mat-raised-button [disabled]="!chatForm.valid"> Create </button>
+    </form>
+    <mat-card *ngFor="let chat of loggedUserChats">
+        <mat-card-content>
+            <div class="header">
+                <h1>{{chat.chatName}}</h1>
+                <p>Users in chat: {{chat.userIds.length}}</p>
+                <button mat-icon-button [matMenuTriggerFor]="menu" id="menu-button">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/chat-messages', chat.id]">Open chat</button>
+                <button mat-menu-item (click)="clearHistory(chat.id)">Clear chat history</button>
+                <button mat-menu-item (click)="deleteChat(chat.id)">Delete chat</button>
+                <button mat-menu-item (click)="deleteLoggedUserFromChat(chat.id)">Quit from chat</button>
+                </mat-menu>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

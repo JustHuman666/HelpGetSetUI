@@ -1,0 +1,83 @@
+<h2>{{userName}}'s profile</h2>
+<div id="profile-container">
+    <form [formGroup]="updateForm" (ngSubmit)="update()" id="update-form">
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>User name:</mat-label>
+            <input matInput id="userName" formControlName="userName"
+                    required
+                    type="text">
+                    <mat-error>
+                        Invalid user name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>First name:</mat-label>
+            <input matInput id="firstName" formControlName="firstName" 
+                required
+                type="text">
+                    <mat-error>
+                        Invalid first name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Last name:</mat-label>
+            <input matInput id="lastName" formControlName="lastName"
+                    required
+                    type="text">
+                    <mat-error>
+                        Invalid last name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Birthday:</mat-label>
+            <input matInput id="birthday" formControlName="birthday"
+                    required
+                    type="date"
+                    min="1900-01-01"
+                    [max]="currentDate">
+                    <mat-error>
+                        Invalid date
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Gender:</mat-label>
+            <mat-select  id="gender" formControlName="gender" required>
+                <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
+            </mat-select>
+            <mat-error>
+                Choose a gender
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Write all digits of your phone number (after +):</mat-label>
+            <input matInput id="phoneNumber" formControlName="phoneNumber" 
+                    required
+                    type="tel"
+                    pattern="^\d{6,15}$">
+                    <mat-error>
+                        Invalid phone number
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-error *ngIf="error!=''">
+            {{error}}
+          </mat-error>
+        <button mat-raised-button [disabled]="!isValid()"> 
+            Update
+            <mat-icon>sync</mat-icon>
+        </button>
+    </form>
+    <button mat-raised-button class="addition-button" routerLink="/change-password"> 
+        Change password
+        <mat-icon>fingerprint</mat-icon>
+    </button>
+    <button mat-raised-button class="addition-button" (click)="deleteAccount()"> 
+        Delete account
+        <mat-icon>delete_outline</mat-icon>
+    </button>
+</div>
