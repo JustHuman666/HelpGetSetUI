@@ -73,7 +73,7 @@ h3{
 ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
     color: #353535;
 }
-#register{
+#update{
     margin-top: 1vh;
     width: 20vw;
     display: inline-flex;

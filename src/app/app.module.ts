@@ -41,6 +41,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
 import { UpdateVolunteerComponent } from './components/update-volunteer/update.volunteer.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { CountriesComponent } from './components/countries/countries.component';
+import { CountryVersionComponent } from './components/country-version/country-version.component';
+import { CreateCountryVersionComponent } from './components/create-country-version/create-country-version.component';
 
 export function getToken() {
   return localStorage.getItem(UNIQUE_USER_TOKEN_KEY);
@@ -59,7 +63,11 @@ export function getToken() {
     MessageComponent,
     ChatMessagesComponent,
     ProfileComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChangePasswordComponent,
+    CountriesComponent,
+    CountryVersionComponent,
+    CreateCountryVersionComponent
   ],
   imports: [
     BrowserModule,

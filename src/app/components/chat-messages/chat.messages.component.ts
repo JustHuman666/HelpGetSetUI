@@ -86,6 +86,11 @@ export class ChatMessagesComponent implements OnInit {
                 this.usersError = Error.returnErrorMessage(exception);
             }
         );
+        this.getMessages();
+        
+    }
+
+    getMessages(){
         this.messageService.getChatMessages(this.thisChatId).subscribe(
             (data) => {
                 this.thisChatMessages = data.reverse();
@@ -104,7 +109,8 @@ export class ChatMessagesComponent implements OnInit {
         }
         this.messageService.sendNewMessageInChat(newMessage).subscribe(
             (data) => {
-                window.location.reload();
+                this.getMessages();
+                this.text.reset();
             },
             (exception) => {
                 this.messageError = Error.returnErrorMessage(exception);

@@ -1,5 +1,4 @@
-export interface Migrant {
-    id: number;
+export interface CreateMigrant {
     isOfficialRefugee: boolean;
     isForcedMigrant: boolean;
     isCommonMigrant: boolean;

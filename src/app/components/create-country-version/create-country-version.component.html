@@ -1,0 +1,41 @@
+<div class="version-container">
+    <form [formGroup]="versionForm" (ngSubmit)="addNewVewrsion()" id="update-form">
+        <mat-label>Registration info:</mat-label>
+        <textarea matInput class="text-area" formControlName="registrationInfo"
+            required
+            type="text">
+        </textarea>
+
+        <mat-label>Employment info:</mat-label>
+        <textarea matInput class="text-area" formControlName="employmentInfo" 
+            required
+            type="text">
+        </textarea>
+
+        <mat-label>Tax info:</mat-label>
+        <textarea matInput class="text-area" formControlName="taxInfo"
+            required
+            type="text">
+        </textarea>
+
+        <mat-label>Support info:</mat-label>
+        <textarea matInput class="text-area" formControlName="supportInfo"
+            required
+            type="text">
+        </textarea>
+
+        <mat-label>Insurance info:</mat-label>
+        <textarea matInput class="text-area" formControlName="insuranceInfo" 
+            required
+            type="text">
+        </textarea>
+
+        <mat-error *ngIf="versionError!=''">
+            {{versionError}}
+          </mat-error>
+        <button mat-raised-button [disabled]="!versionForm.valid">
+            Add new version
+            <mat-icon>sync</mat-icon>
+        </button>
+    </form>
+</div>

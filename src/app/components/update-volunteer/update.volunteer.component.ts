@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 
 import { AuthService } from "src/app/services/auth-service/auth.service";
 
 import { Error } from "src/app/error-handle/error";
+import { VolunteerService } from "src/app/services/volunteer-service/volunteer.service";
 
 @Component({
     selector: 'update-volunteer',
@@ -13,45 +14,65 @@ import { Error } from "src/app/error-handle/error";
 })
 
 export class UpdateVolunteerComponent implements OnInit {
+  userId!: number;
+  choices: string[];
 
-  currentDate: string;
-  genders: string[];
+  constructor(
+    private volunteerService: VolunteerService, 
+    private authService: AuthService,
+    private router: Router, 
+    private route: ActivatedRoute) {
+    this.userId = this.route.snapshot.params['id'];
+    this.choices = ["Yes", "No"]
+  }
 
-    constructor(private authService: AuthService, private router: Router) {
-      let today = new Date();
-      this.currentDate = today.toISOString().split('T')[0];
-      this.genders = ["Female", "Male", "Other"]
-    }
-
-    registerForm!: FormGroup;
+    updateForm!: FormGroup;
 
     error!: string;
 
+    volunteerId!: number;
+
     ngOnInit(): void {
         
-        this.error = '';
-        this.registerForm = new FormGroup({
-          userName: new FormControl(),
-          firstName: new FormControl(),
-          lastName: new FormControl(),
-          phoneNumber: new FormControl(),
-          gender: new FormControl(),
-          birthday: new FormControl(),
-          password: new FormControl()
-        });
+      this.error = '';
+      this.updateForm = new FormGroup({
+        isATranslator: new FormControl(),
+        isOrganisation: new FormControl(),
+        hasAPlace: new FormControl()
+      });
     }
 
-    register(){
-        this.authService.register(this.registerForm.value).subscribe(
-            () => {
-                alert("Your account was successfully created! Now try to log in.");
+    update(){
+      let choiceDict: {[id: string] : boolean} = {
+        "Yes": true,
+        "No": false
+      }
+      this.volunteerService.getVolunteerByUserId(this.userId).subscribe(
+        (data) => {
+          this.volunteerId = data.id;
+        }
+      )
+      this.volunteerService.updateVolunteer({
+        isATranslator: choiceDict[this.updateForm.value.isATranslator],
+        isOrganisation: choiceDict[this.updateForm.value.isOrganisation],
+        hasAPlace: choiceDict[this.updateForm.value.hasAPlace],
+        userId: this.userId,
+        id: this.volunteerId
+      }).subscribe(
+          () => {
+              
+              if (!this.authService.isAuthenticated()){
+                alert("Your volunteer information was successfully updated! You can try to log in");
                 this.router.navigate(['']);
-              },
-              (exception) => {
-                this.error = Error.returnErrorMessage(exception);
-                
               }
-        );
+              else {
+                alert("Your volunteer information was successfully updated!");
+              }
+            },
+            (exception) => {
+              this.error = Error.returnErrorMessage(exception);
+            }
+      );
     }
 
 }

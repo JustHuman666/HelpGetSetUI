@@ -1,0 +1,48 @@
+<div class="chats-container">
+    <div class="forms-container">
+        <button mat-raised-button [disabled]="!isLoggedIn" [routerLink]="['/create-country-version', countryId]">
+            New
+        </button>
+        <form [formGroup]="versionsForm" (ngSubmit)="getSpecificVersion()" id="swtich-form"  *ngIf="versionIsFound">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Creation time:</mat-label>
+                <mat-select  id="creationTime" formControlName="versionTime" required>
+                    <mat-option *ngFor="let version of allVersions"
+                    [value]="datepipe.transform(version.changeTime, 'M/d/yy, h:mm a')">
+                    {{ datepipe.transform(version.changeTime, 'M/d/yy, h:mm a') }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+              <button mat-raised-button [disabled]="!versionsForm.valid"> Switch </button>
+        </form>
+    </div>
+    <p class="error-message" *ngIf="versionError != ''">
+        {{versionError}}
+    </p>
+    <div class="version-container" *ngIf="versionIsFound">
+        <mat-card class="main-card">
+            <h1>{{foundCountry.name}}, {{foundCountry.shortName}} from
+                {{datepipe.transform(foundVersion.changeTime, 'M/d/yy, h:mm a')}}</h1>
+            <mat-card>
+                Registration information:<br>
+                {{foundVersion.registrationInfo}}
+            </mat-card>
+            <mat-card>
+                Tax information:<br>
+                {{foundVersion.taxInfo}}
+            </mat-card>
+            <mat-card>
+                Employment information:<br>
+                {{foundVersion.employmentInfo}}
+            </mat-card>
+            <mat-card>
+                Insurance information:<br>
+                {{foundVersion.insuranceInfo}}
+            </mat-card>
+            <mat-card>
+                Support information:<br>
+                {{foundVersion.supportInfo}}
+            </mat-card>
+        </mat-card>
+    </div>
+</div>

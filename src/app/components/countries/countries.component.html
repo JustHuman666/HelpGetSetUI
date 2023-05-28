@@ -1,0 +1,39 @@
+<div class="chats-container">
+    <p class="error-message" *ngIf="countries.length == 0 || countriesError != ''">
+        There is no country added yet.
+    </p>
+    <form [formGroup]="countryForm" (ngSubmit)="getCountry()" class="chat-form">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label color="accent">Write a name of country</mat-label>
+          <input matInput formControlName="countryName"
+                type="text"
+                placeholder="Country full name">
+                <mat-error>
+                  Wrong value
+                </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label color="accent">Write a short name of country</mat-label>
+            <input matInput formControlName="shortName"
+                  type="text"
+                  placeholder="Country short name">
+                  <mat-error>
+                    Wrong value
+                  </mat-error>
+          </mat-form-field>
+
+        <button mat-raised-button [disabled]="!countryForm"> Search </button>
+    </form>
+    <mat-error *ngIf="formError!=''">
+        {{formError}}
+    </mat-error>
+    <mat-card *ngFor="let country of countries">
+        <mat-card-content  [routerLink]="['/country-version', country.id]">
+            <div class="header">
+                <h1 id="left">{{country.name}}</h1>
+                <h1 id="right">{{country.shortName}}</h1>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

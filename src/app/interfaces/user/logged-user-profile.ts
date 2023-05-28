@@ -6,11 +6,12 @@ export interface LoggedUserProfile {
     lastName: string;
     birthday: Date;
     gender: string;
+    originalCountryId: number;
+    currentCountryId: number;
 
     countryVersionsChecked: number[];
     madeCountryChanges: number[];
     chatIds: number[];
     messageIds: number[];
-    countries: number[];
     posts: number[];
 }

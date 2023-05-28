@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HELPGETSET_API_URL } from 'src/app/injection/injection-token';
+import { CreateVolunteer } from 'src/app/interfaces/volunteer/create-volunteer';
 
 import { Volunteer } from 'src/app/interfaces/volunteer/volunteer';
 
@@ -44,7 +45,7 @@ export class VolunteerService{
         return this.http.get<Volunteer[]>(`${this.apiUrl}/api/Volunteer/ForHousing`)
     }
 
-    createVolunteer(VolunteerModel: Volunteer):Observable<any>{
+    createVolunteer(VolunteerModel: CreateVolunteer):Observable<any>{
         return this.http.post(`${this.apiUrl}/api/Volunteer/New`, VolunteerModel);
     }
 

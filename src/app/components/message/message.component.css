@@ -4,6 +4,7 @@
     color: #353535;
     width: 95%;
     margin-left: 2.5%;
+    margin-bottom: 2vh;
 }
 .header{
     display: flex;
@@ -11,6 +12,8 @@
     justify-content: space-between;
     align-items: center;
 }
-.header h1{
+.header h1, ::ng-deep .mat-h1, ::ng-deep .mat-headline-5, ::ng-deep .mat-typography .mat-h1, ::ng-deep .mat-typography .mat-headline-5, ::ng-deep .mat-typography h1{
     margin-bottom: 0;
+    width: 90%;
+    word-break: break-all;
 }

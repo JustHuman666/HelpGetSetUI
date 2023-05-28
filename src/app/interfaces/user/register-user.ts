@@ -6,5 +6,6 @@ export interface RegisterUser{
     password: string;
     birthday: Date;
     gender: string;
-    countries: number[]
+    originalCountryId: number;
+    currentCountryId: number;
 }

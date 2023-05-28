@@ -4,6 +4,7 @@ export interface GetCountry {
     shortName: string;
 
     countryVersionsIds: number[];
-    userIds: number[];
+    usersInIds: number[];
+    usersFromIds: number[];
     postIds: number[];
 }

@@ -31,19 +31,21 @@
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Original country:</mat-label>
-            <input matInput id="originalCountry" formControlName="originalCountry"
-                    required>
+            <mat-select  id="originalCountry" formControlName="originalCountry" required>
+                <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
+            </mat-select>
                     <mat-error>
-                        Invalid country name
+                        Choose country name
                     </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Current country:</mat-label>
-            <input matInput id="currentCountry" formControlName="currentCountry"
-                    required>
+            <mat-select  id="currentCountry" formControlName="currentCountry" required>
+                <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
+            </mat-select>
                     <mat-error>
-                        Invalid country name
+                        Choose country name
                     </mat-error>
         </mat-form-field>
 
@@ -95,7 +97,7 @@
         <button type="submit" id="register-migrant" mat-raised-button [disabled]="!registerForm.valid" (click)="registerMigrant()"> 
             Register as migrant
         </button>
-        <button type="submit" id="register-volunteer" mat-raised-button [disabled]="!registerForm.valid"> 
+        <button type="submit" id="register-volunteer" mat-raised-button [disabled]="!registerForm.valid" (click)="registerVolunteer()"> 
             Register as volunteer
         </button>
       </form>

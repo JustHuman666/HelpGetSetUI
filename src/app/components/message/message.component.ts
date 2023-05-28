@@ -48,7 +48,6 @@ export class MessageComponent implements OnInit {
     deleteMessage(){
         this.messageService.deleteMessage(this.Message.id).subscribe(
             (data) => {
-               alert("Message was deleted");
                window.location.reload();
             },
             (exception) => {

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HELPGETSET_API_URL } from 'src/app/injection/injection-token';
 
 import { Migrant } from 'src/app/interfaces/migrant/migrant';
+import { CreateMigrant } from 'src/app/interfaces/migrant/create-migrant';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class MigrantService{
         return this.http.get<string>(`${this.apiUrl}/api/Migrant/${id}/FamilyStatus`)
     } 
 
-    createMigrant(migrantModel: Migrant):Observable<any>{
+    createMigrant(migrantModel: CreateMigrant):Observable<any>{
         return this.http.post(`${this.apiUrl}/api/Migrant/New`, migrantModel);
     }
 

@@ -27,8 +27,12 @@ export class CountryService{
         return this.http.get<GetCountry>(`${this.apiUrl}/api/Country/${id}`)
     } 
 
-    getCountryByName(name: number):Observable<GetCountry>{
+    getCountryByName(name: string):Observable<GetCountry>{
         return this.http.get<GetCountry>(`${this.apiUrl}/api/Country/Name/${name}`)
+    } 
+
+    getCountryByShortName(name: string):Observable<GetCountry>{
+        return this.http.get<GetCountry>(`${this.apiUrl}/api/Country/ShortName/${name}`)
     } 
 
     getUsersFromCountry(id: number):Observable<GetUser>{
@@ -48,7 +52,7 @@ export class CountryService{
     }
 
     updateCountry(countryVersionModel: CreateCountryVersion):Observable<any>{
-        return this.http.put(`${this.apiUrl}/api/Country/ChangeInfo`, countryVersionModel);
+        return this.http.post(`${this.apiUrl}/api/Country/ChangeInfo`, countryVersionModel);
     }
 
     renameCountry(countryModel: GetCountry):Observable<any>{
@@ -60,7 +64,7 @@ export class CountryService{
     } 
 
     getCountryVersionsById(id: number):Observable<GetCountryVersion[]>{
-        return this.http.get<GetCountryVersion[]>(`${this.apiUrl}/api/Country/Version/${id}/AllVersions`)
+        return this.http.get<GetCountryVersion[]>(`${this.apiUrl}/api/Country/${id}/AllVersions`)
     } 
 
     getLatestCountryVersionById(id: number):Observable<GetCountryVersion>{

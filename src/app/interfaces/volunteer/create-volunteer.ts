@@ -1,5 +1,4 @@
-export interface Volunteer {
-    id: number;
+export interface CreateVolunteer {
     isOrganisation: boolean;
     hasAPlace: boolean;
     isATranslator: boolean;    

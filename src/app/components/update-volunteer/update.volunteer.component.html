@@ -2,79 +2,43 @@
     <h3>At first, please, provide some general information.</h3>
 </div>
 <div id="register-container">
-    <form [formGroup]="registerForm" (ngSubmit)="register()" id="register-form">
+    <form [formGroup]="updateForm" (ngSubmit)="update()" id="register-form">
         <mat-form-field appearance="outline" color="accent">
-            <mat-label>User name:</mat-label>
-            <input matInput id="userName" formControlName="userName"
-                    required>
-                    <mat-error>
-                        Invalid user name
-                    </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="accent">
-            <mat-label>First name:</mat-label>
-            <input matInput id="firstName" formControlName="firstName" required>
-                    <mat-error>
-                        Invalid first name
-                    </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="accent">
-            <mat-label>Last name:</mat-label>
-            <input matInput id="lastName" formControlName="lastName"
-                    required>
-                    <mat-error>
-                        Invalid last name
-                    </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="accent">
-            <mat-label>Birthday:</mat-label>
-            <input matInput id="birthday" formControlName="birthday"
-                    required
-                    type="date"
-                    min="1900-01-01"
-                    [max]="currentDate">
-                    <mat-error>
-                        Invalid date
-                    </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" color="accent">
-            <mat-label>Gender:</mat-label>
-            <mat-select  id="gender" formControlName="gender" required>
-                <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
+            <mat-label>Do you suggest a place:</mat-label>
+            <mat-select  id="hasAPlace" formControlName="hasAPlace" required>
+                <mat-option *ngFor="let choice of choices" [value]="choice">{{ choice }}</mat-option>
             </mat-select>
             <mat-error>
-                Choose a gender
+                Choose a value
             </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
-            <mat-label>Write all digits of your phone number (after +):</mat-label>
-            <input matInput id="phoneNumber" formControlName="phoneNumber" 
-                    required
-                    type="tel"
-                    pattern="^\d{6,15}$">
-                    <mat-error>
-                        Invalid phone number
-                    </mat-error>
+            <mat-label>Can you translate:</mat-label>
+            <mat-select  id="isATranslator" formControlName="isATranslator" required>
+                <mat-option *ngFor="let choice of choices" [value]="choice">{{ choice }}</mat-option>
+            </mat-select>
+            <mat-error>
+                Choose a value
+            </mat-error>
         </mat-form-field>
+
         <mat-form-field appearance="outline" color="accent">
-            <mat-label>Password:</mat-label>
-            <input matInput id="password" formControlName="password" 
-                    required 
-                    type="password">
-                    <mat-error>
-                        Invalid password
-                    </mat-error>
+            <mat-label>Do you represent an organisation:</mat-label>
+            <mat-select  id="isOrganisation" formControlName="isOrganisation" required>
+                <mat-option *ngFor="let choice of choices" [value]="choice">{{ choice }}</mat-option>
+            </mat-select>
+            <mat-error>
+                Choose a value
+            </mat-error>
         </mat-form-field>
+
         <mat-error *ngIf="error!=''">
             {{error}}
           </mat-error>
-        <button id="register" mat-raised-button [disabled]="!registerForm.valid"> 
-            Register
+
+        <button id="register" mat-raised-button [disabled]="!updateForm.valid"> 
+            Confirm
         </button>
       </form>
 </div>

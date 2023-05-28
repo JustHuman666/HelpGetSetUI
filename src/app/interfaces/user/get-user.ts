@@ -6,7 +6,8 @@ export interface GetUser {
     lastName: string;
     birthday: Date;
     gender: string;
+    originalCountryId: number;
+    currentCountryId: number;
 
-    countries: number[];
     posts: number[];
 }

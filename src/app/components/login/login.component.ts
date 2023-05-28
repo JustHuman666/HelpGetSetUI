@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   login(){
     this.authService.logIn(this.loginForm.controls['phone'].value, this.loginForm.controls['password'].value)
       .subscribe(() => {
-        this.router.navigate([''])
+        this.router.navigate(['/profile'])
       }, 
       (exception) => {
         this.loginError = Error.returnErrorMessage(exception);;

@@ -1,12 +1,10 @@
 .mat-mdc-card{
-    background-color: #D9D9D9;
+    background-color: #74d0c7cf;
     margin-top: 1vh;
-    color: #353535;
-    width: 100%;
-}
-
-.countries{
-    width: 100%;
+    color: #0a4045;
+    width: 90%;
+    margin-bottom: 1vh;
+    padding: 2%;
 }
 .chats-container{
     display: flex;
@@ -17,6 +15,19 @@
     height: auto;
     overflow: hidden;
     color: white;
+    margin-top: 2vh;
+}
+.forms-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    color: white;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
 }
 .header{
     display: flex;
@@ -26,6 +37,16 @@
 }
 .header h1, .header p{
     margin-bottom: 0;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+#left{
+    width: 40%;
+}
+
+#right{
+    width: 15%;
 }
 
 .error-message{
@@ -34,28 +55,24 @@
     font-size: 9vh;
     line-height: 10vh;
 }
-.chat-form{
+.version-container{
+    margin-top: 2vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 2vh;
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: auto;
     align-items: center;
 }
-
-.mat-mdc-form-field{
-    height: 12vh;
-    width: 100%;
-    font-size: x-large;
-    text-align: center;
-}
-
-.mat-mdc-form-field-error{
-    color: #ffe8e4;
-    max-height: 3vh;
-    max-width: 90%;
-    overflow: clip;
+.main-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 96%;
+    height: auto;
+    align-items: center;
+    overflow: hidden;
+    background-color: #daf5f8;
 }
 
 ::ng-deep .mat-mdc-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick, .mat-error{
@@ -64,10 +81,10 @@
 
 .mat-mdc-raised-button{
     background-color: #eaeaea;
-    margin-bottom: 4vh;
-    width: 50%;
+    width: 25%;
     height: 6vh;
-    margin-top: -2vh;
+    overflow: hidden;
+    color: #353535;
 }
 
 ::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label,
@@ -90,4 +107,24 @@
 
 ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
     color: #353535;
+}
+
+
+.mat-mdc-form-field{
+    height: 10vh;
+    width: 60%;
+    font-size: large;
+}
+#swtich-form{
+    width: 60%;
+    display: flex;
+    direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 2vw;
+}
+
+::ng-deep .mat-mdc-select-value{
+    font-size: x-large;
+    color: aliceblue;
 }

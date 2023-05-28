@@ -21,6 +21,8 @@ export class AppComponent {
         this.lastName = user.lastName;
         this.birthday = user.birthday;
         this.gender = user.gender;
+        this.originalCountryId = user.originalCountryId;
+        this.currrentCountryId = user.currentCountryId;
       });
     }
   }
@@ -36,6 +38,10 @@ export class AppComponent {
   birthday!: Date;
 
   gender : string = '';
+
+  originalCountryId!: number;
+
+  currrentCountryId!: number;
 
   public get isLoggedIn() : boolean {
     return this.authService.isAuthenticated();

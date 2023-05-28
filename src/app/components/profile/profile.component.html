@@ -54,6 +54,26 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
+            <mat-label>Original country:</mat-label>
+            <mat-select  id="originalCountry" formControlName="originalCountry" required>
+                <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
+            </mat-select>
+                    <mat-error>
+                        Choose country name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Current country:</mat-label>
+            <mat-select  id="currentCountry" formControlName="currentCountry" required>
+                <mat-option *ngFor="let country of countries" [value]="country">{{ country }}</mat-option>
+            </mat-select>
+                    <mat-error>
+                        Choose country name
+                    </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent">
             <mat-label>Write all digits of your phone number (after +):</mat-label>
             <input matInput id="phoneNumber" formControlName="phoneNumber" 
                     required

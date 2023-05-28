@@ -1,7 +1,5 @@
 export interface GetCountryVersion {
     id: number;
-    name: string;
-    shortName: string;
     authorId: number;
     countryId: number;
     authorUsername: string;
@@ -12,6 +10,7 @@ export interface GetCountryVersion {
     supportInfo: string;
     approvesAmount: number;
     disApprovesAmount: number;
+    changeTime: Date;
 
     usersWhoChecked: number[];
 }

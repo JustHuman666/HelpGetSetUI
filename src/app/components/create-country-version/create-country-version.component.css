@@ -1,4 +1,4 @@
-#profile-container{
+.version-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,25 +23,18 @@ h2, h3{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 50%;
+    width: 80%;
     height: auto;
     color: aliceblue;
     font-size: medium;
 }
 
-.mat-mdc-form-field{
-    height: 12vh;
+.text-area{
+    height: 30vh;
     width: 100%;
     font-size: x-large;
-}
-
-.mat-mdc-form-field-error{
-    color: #ffe8e4;
-}
-
-::ng-deep .mat-mdc-select-value{
-    font-size: x-large;
-    color: aliceblue;
+    margin-bottom: 2vh;
+    resize: none;
 }
 
 ::ng-deep .mat-mdc-form-field.mat-accent .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label,
@@ -78,7 +71,4 @@ h2, h3{
 
 .mat-mdc-form-field-flex{
     height: 5vh;
-}
-.addition-button{
-    width: 50%;
 }

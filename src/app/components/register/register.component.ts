@@ -12,6 +12,9 @@ import { VolunteerService } from "src/app/services/volunteer-service/volunteer.s
 import { Migrant } from "src/app/interfaces/migrant/migrant";
 import { Volunteer } from "src/app/interfaces/volunteer/volunteer";
 import { CountryService } from "src/app/services/country-service/country.service";
+import { RegisterUser } from "src/app/interfaces/user/register-user";
+import { CreateMigrant } from "src/app/interfaces/migrant/create-migrant";
+import { CreateVolunteer } from "src/app/interfaces/volunteer/create-volunteer";
 
 @Component({
     selector: 'register',
@@ -23,6 +26,7 @@ export class RegisterComponent implements OnInit {
 
   currentDate: string;
   genders: string[];
+  countries: string[];
 
     constructor(
       private authService: AuthService,
@@ -34,6 +38,16 @@ export class RegisterComponent implements OnInit {
       let today = new Date();
       this.currentDate = today.toISOString().split('T')[0];
       this.genders = ["Female", "Male", "Other"]
+      this.countries = [];
+      this.countryService.getAllCountries().subscribe(
+        (data) => {
+          if(data.length >= 0){
+            data.forEach(country => {
+              this.countries.push(country.name)
+            });
+          }
+        }
+      )
     }
 
     registerForm!: FormGroup;
@@ -42,9 +56,9 @@ export class RegisterComponent implements OnInit {
 
     newUser!: GetUser;
 
-    defaultMigrant!: Migrant;
+    defaultMigrant!: CreateMigrant;
 
-    defaultVolunteer!: Volunteer;
+    defaultVolunteer!: CreateVolunteer;
 
     originalCountryId!: number;
     
@@ -66,63 +80,117 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    registerMigrant(){
-      this.countryService.getCountryByName(this.registerForm.value.originalCountry).subscribe(
-        (data) => {
-          this.originalCountryId = data.id;
-        },
-        (exception) => {
-          this.error = Error.returnErrorMessage(exception);
-        }
-      )
-      this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
-        (data) => {
-          this.currentCountryId = data.id;
-        },
-        (exception) => {
-          this.error = Error.returnErrorMessage(exception);
-        }
-      )
-      this.authService.register({
-        phoneNumber: this.registerForm.value.phoneNumber,
-        userName: this.registerForm.value.userName,
-        firstName: this.registerForm.value.firstName,
-        lastName: this.registerForm.value.lastName,
-        password: this.registerForm.value.password,
-        birthday: this.registerForm.value.birthday,
-        gender: this.registerForm.value.gender,
-        countries: [this.originalCountryId, this.currentCountryId]
-      }).subscribe(
-          () => {
-              alert("Your account was successfully created!");
-              this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(
-                (data) => {
-                    this.newUser = data;
-                    this.defaultMigrant = {
-                      isOfficialRefugee: false,
-                      isForcedMigrant: false,
-                      isCommonMigrant: false,
-                      familyStatus: "Single",
-                      amountOfChildren: 0,
-                      isEmployed: false,
-                      housing: "None",
-                      userId: this.newUser.id
+  registerMigrant(){
+    this.countryService.getCountryByName(this.registerForm.value.originalCountry).subscribe(
+      (data) => {
+        this.originalCountryId = data.id;
+      },
+      (exception) => {
+        this.error = Error.returnErrorMessage(exception);
+      }
+    )
+    this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
+      (data) => {
+        this.currentCountryId = data.id;
+      },
+      (exception) => {
+        this.error = Error.returnErrorMessage(exception);
+      }
+    )
+    this.authService.register({
+      phoneNumber: this.registerForm.value.phoneNumber,
+      userName: this.registerForm.value.userName,
+      firstName: this.registerForm.value.firstName,
+      lastName: this.registerForm.value.lastName,
+      password: this.registerForm.value.password,
+      birthday: this.registerForm.value.birthday,
+      gender: this.registerForm.value.gender,
+      originalCountryId: this.originalCountryId,
+      currentCountryId: this.originalCountryId
+    }).subscribe(
+        () => {
+            this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(
+              (data) => {
+                  this.newUser = data;
+                  this.defaultMigrant = {
+                    isOfficialRefugee: false,
+                    isForcedMigrant: false,
+                    isCommonMigrant: false,
+                    familyStatus: "Single",
+                    amountOfChildren: 0,
+                    isEmployed: false,
+                    housing: "None",
+                    userId: this.newUser.id
+                  }
+                  this.migrantService.createMigrant(this.defaultMigrant).subscribe(
+                    () => {
+                      alert("You have created your account, now continue with more detailed migrant information.")
+                      this.router.navigate(['/update-migrant', this.newUser.id]);
                     }
-                    this.migrantService.createMigrant(this.defaultMigrant).subscribe(
-                      () => {
-                        alert("You have created your account, now continue with more detailed migrant information.")
-                        this.router.navigate(['/update-migrant', this.newUser.id]);
-                      }
-                    )
-                },
-            ); 
-          },
-          (exception) => {
-            this.error = Error.returnErrorMessage(exception);
-            
-          }
-      );
-    }
+                  )
+              },
+          ); 
+        },
+        (exception) => {
+          this.error = Error.returnErrorMessage(exception);
+          
+        }
+    );
+  }
+
+  registerVolunteer(){
+    this.countryService.getCountryByName(this.registerForm.value.originalCountry).subscribe(
+      (data) => {
+        this.originalCountryId = data.id;
+      },
+      (exception) => {
+        this.error = Error.returnErrorMessage(exception);
+      }
+    )
+    this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
+      (data) => {
+        this.currentCountryId = data.id;
+      },
+      (exception) => {
+        this.error = Error.returnErrorMessage(exception);
+      }
+    )
+    this.authService.register({
+      phoneNumber: this.registerForm.value.phoneNumber,
+      userName: this.registerForm.value.userName,
+      firstName: this.registerForm.value.firstName,
+      lastName: this.registerForm.value.lastName,
+      password: this.registerForm.value.password,
+      birthday: this.registerForm.value.birthday,
+      gender: this.registerForm.value.gender,
+      originalCountryId: this.originalCountryId,
+      currentCountryId: this.currentCountryId
+    }).subscribe(
+        () => {
+            this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(
+              (data) => {
+                  this.newUser = data;
+                  this.defaultVolunteer = {
+                    isATranslator: false,
+                    isOrganisation: false,
+                    hasAPlace: false,
+                    userId: this.newUser.id
+                  }
+                  this.volunteerServidce.createVolunteer(this.defaultVolunteer).subscribe(
+                    () => {
+                      alert("You have created your account, now continue with more detailed volunteer information.")
+                      this.router.navigate(['/update-volunteer', this.newUser.id]);
+                    }
+                  )
+              },
+          ); 
+        },
+        (exception) => {
+          this.error = Error.returnErrorMessage(exception);
+          
+        }
+    );
+  }
 
 }
   
