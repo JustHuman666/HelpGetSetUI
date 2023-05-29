@@ -31,8 +31,10 @@
     <mat-card *ngFor="let country of countries">
         <mat-card-content  [routerLink]="['/country-version', country.id]">
             <div class="header">
-                <h1 id="left">{{country.name}}</h1>
-                <h1 id="right">{{country.shortName}}</h1>
+                <p id="left">{{country.name}}</p>
+                <p>In: {{country.usersInIds.length}}</p>
+                <p>From: {{country.usersInIds.length}}</p>
+                <p id="right">{{country.shortName}}</p>
             </div>
         </mat-card-content>
     </mat-card>

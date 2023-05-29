@@ -44,6 +44,14 @@ export class PostService{
         return this.http.get<GetPost[]>(`${this.apiUrl}/api/Post/Suitable/${ipAddress}`)
     } 
 
+    getVolunteersPosts():Observable<GetPost[]>{
+        return this.http.get<GetPost[]>(`${this.apiUrl}/api/Post/AllOfVolunteers`)
+    } 
+
+    getMigrantsPosts():Observable<GetPost[]>{
+        return this.http.get<GetPost[]>(`${this.apiUrl}/api/Post/AllOfMigrants`)
+    } 
+
     deletePost(id: number):Observable<any>{
         return this.http.delete(`${this.apiUrl}/api/Post/${id}`);
     }

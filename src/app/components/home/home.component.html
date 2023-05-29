@@ -1,5 +1,5 @@
 <div id="home-container">
-    <div id="welcome-card" *ngIf="!isLoggedIn">
+    <div id="welcome-card">
         <h1>Welcome</h1>
         <div id="line"></div>
         <h2>"HelpGetSet" is a simple social network, which is meant to connect people who struggle and who are eager to help.
@@ -18,7 +18,7 @@
             <button mat-button matTooltip="You can communicate to other users" matTooltipPosition="above" routerLink="/login">
                 <mat-icon id="chat">mail_outline</mat-icon>
             </button>
-            <button mat-button matTooltip="You can find useful country information" matTooltipPosition="above" routerLink="/login">
+            <button mat-button matTooltip="You can find useful country information" matTooltipPosition="above" routerLink="/countries">
                 <mat-icon id="info">help_outline</mat-icon>
             </button>
             <button mat-button matTooltip="You can find new people" matTooltipPosition="above" routerLink="/login">

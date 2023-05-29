@@ -33,13 +33,29 @@ export class UpdateVolunteerComponent implements OnInit {
     volunteerId!: number;
 
     ngOnInit(): void {
-        
       this.error = '';
       this.updateForm = new FormGroup({
         isATranslator: new FormControl(),
         isOrganisation: new FormControl(),
         hasAPlace: new FormControl()
       });
+      this.volunteerService.getVolunteerByUserId(this.userId).subscribe(
+        (profile) => {
+          this.updateForm.setValue({
+            isATranslator: this.defineString(profile.isATranslator),
+            isOrganisation: this.defineString(profile.isOrganisation),
+            hasAPlace: this.defineString(profile.hasAPlace)
+          })
+        }
+      )
+    }
+
+    defineString(answer: boolean): string{
+      let stringAnswer = "No"
+      if(answer){
+        stringAnswer = "Yes"
+      }
+      return stringAnswer;
     }
 
     update(){
@@ -50,28 +66,29 @@ export class UpdateVolunteerComponent implements OnInit {
       this.volunteerService.getVolunteerByUserId(this.userId).subscribe(
         (data) => {
           this.volunteerId = data.id;
+          this.volunteerService.updateVolunteer({
+            isATranslator: choiceDict[this.updateForm.value.isATranslator],
+            isOrganisation: choiceDict[this.updateForm.value.isOrganisation],
+            hasAPlace: choiceDict[this.updateForm.value.hasAPlace],
+            userId: this.userId,
+            id: this.volunteerId
+          }).subscribe(
+              () => {
+                  
+                  if (!this.authService.isAuthenticated()){
+                    alert("Your volunteer information was successfully updated! You can try to log in");
+                    this.router.navigate(['']);
+                  }
+                  else {
+                    alert("Your volunteer information was successfully updated!");
+                    this.error = '';
+                  }
+                },
+                (exception) => {
+                  this.error = Error.returnErrorMessage(exception);
+                }
+          );
         }
-      )
-      this.volunteerService.updateVolunteer({
-        isATranslator: choiceDict[this.updateForm.value.isATranslator],
-        isOrganisation: choiceDict[this.updateForm.value.isOrganisation],
-        hasAPlace: choiceDict[this.updateForm.value.hasAPlace],
-        userId: this.userId,
-        id: this.volunteerId
-      }).subscribe(
-          () => {
-              
-              if (!this.authService.isAuthenticated()){
-                alert("Your volunteer information was successfully updated! You can try to log in");
-                this.router.navigate(['']);
-              }
-              else {
-                alert("Your volunteer information was successfully updated!");
-              }
-            },
-            (exception) => {
-              this.error = Error.returnErrorMessage(exception);
-            }
       );
     }
 

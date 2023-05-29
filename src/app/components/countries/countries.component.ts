@@ -26,7 +26,7 @@ export class CountriesComponent implements OnInit {
 
     constructor(private authService: AuthService,
         private countryService: CountryService,
-        private route: ActivatedRoute) {
+        private router: Router) {
         }
     
     ngOnInit(): void {
@@ -114,6 +114,14 @@ export class CountriesComponent implements OnInit {
             this.formError = "Name and shortname are not for one country.";
         }
         return this.countryToReturn;
+    }
+
+    goToLatest(countryId: number){
+        this.countryService.getLatestCountryVersionById(countryId).subscribe(
+            (version) => {
+                this.router.navigate(["/country-version", version.id])
+            }
+        )
     }
 }
   

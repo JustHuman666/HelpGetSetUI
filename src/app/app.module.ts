@@ -24,6 +24,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTreeModule} from '@angular/material/tree';
 
+
 import { environment } from 'src/environments/environment';
 import { HELPGETSET_API_URL } from 'src/app/injection/injection-token';
 import { UNIQUE_USER_TOKEN_KEY } from 'src/app/services/auth-service/auth.service';
@@ -45,6 +46,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { CountriesComponent } from './components/countries/countries.component';
 import { CountryVersionComponent } from './components/country-version/country-version.component';
 import { CreateCountryVersionComponent } from './components/create-country-version/create-country-version.component';
+import { PostsComponent } from './components/posts/post.component';
+import { OnePostComponent } from './components/one-post/one.post.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 export function getToken() {
   return localStorage.getItem(UNIQUE_USER_TOKEN_KEY);
@@ -67,7 +71,10 @@ export function getToken() {
     ChangePasswordComponent,
     CountriesComponent,
     CountryVersionComponent,
-    CreateCountryVersionComponent
+    CreateCountryVersionComponent,
+    PostsComponent,
+    OnePostComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

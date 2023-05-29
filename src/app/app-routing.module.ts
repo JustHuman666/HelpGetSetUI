@@ -16,6 +16,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { CountriesComponent } from './components/countries/countries.component';
 import { CountryVersionComponent } from './components/country-version/country-version.component';
 import { CreateCountryVersionComponent } from './components/create-country-version/create-country-version.component';
+import { PostsComponent } from './components/posts/post.component';
+import { OnePostComponent } from './components/one-post/one.post.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 
 const routes: Routes = [
@@ -32,8 +35,10 @@ const routes: Routes = [
   {path: "change-password", component: ChangePasswordComponent, canActivate: [IsLoggedIn]},
   {path: "countries", component: CountriesComponent},
   {path: "country-version/:id", component: CountryVersionComponent},
-  {path: "country-version/:id/:version_id", component: CountryVersionComponent},
   {path: "create-country-version/:id", component: CreateCountryVersionComponent, canActivate: [IsLoggedIn]},
+  {path: "posts", component: PostsComponent},
+  {path: "one-post", component: OnePostComponent},
+  {path: "create-post", component: CreatePostComponent}
 ];
 
 @NgModule({

@@ -5,7 +5,7 @@ import { UserService } from "src/app/services/user-service/user.service";
 
 import { GetUser } from "src/app/interfaces/user/get-user";
 
-import { Error } from "src/app/error-handle/error";
+import { DatePipe } from "@angular/common";
 import { GetCountry } from "src/app/interfaces/country/get-country";
 import { CountryService } from "src/app/services/country-service/country.service";
 import { MigrantService } from "src/app/services/migrant-service/migrant.service";
@@ -27,6 +27,7 @@ export class UserProfileComponent implements OnInit{
         private migrantService: MigrantService,
         private volunteerService: VolunteerService,
         private route: ActivatedRoute,
+        public datepipe: DatePipe,
         private router: Router) {
            
     }
@@ -49,8 +50,8 @@ export class UserProfileComponent implements OnInit{
                 )
             }
         );
-        this.isMigrant = this.checkIfMigrant();
-        this.isVolunteer = this.checkIfVolunteer();
+        this.checkIfMigrant();
+        this.checkIfVolunteer();
 
         
     }
@@ -66,31 +67,29 @@ export class UserProfileComponent implements OnInit{
 
     userId!: number;
 
-    checkIfMigrant(): boolean{
-        let result = false;
+    checkIfMigrant(){
         this.migrantService.getMigrantByUserId(this.userId).subscribe(
             (data) => {
                 if(data.id > 0){
-                    result = true;
+                    this.isMigrant = true;
                     this.migrant = data
                 }
             }
-        )
-        return result;
+        );
+        this.isMigrant = false;
     }
 
-    checkIfVolunteer(): boolean{
-        let result = false;
+    checkIfVolunteer(){
         this.volunteerService.getVolunteerByUserId(this.userId).subscribe(
             (data) => {
                 if(data.id > 0){
-                    result = true;
+                    this.isVolunteer = true;
                     this.volunteer = data
                 }
                 
             }
-        )
-        return result;
+        );
+        this.isVolunteer = false;
     }
 
 }

@@ -38,7 +38,7 @@ export class CountryVersionComponent implements OnInit {
 
   ngOnInit(): void {
     this.countryId = this.route.snapshot.params['id'];
-    this.versionId = this.route.snapshot.params['version_id'];
+    this.isLoggedIn =  this.authService.isAuthenticated();
     this.countryService.getCountryById(this.countryId).subscribe(
       (country) => {
         this.foundCountry = country;
@@ -58,6 +58,7 @@ export class CountryVersionComponent implements OnInit {
       this.countryService.getLatestCountryVersionById(this.countryId).subscribe(
         (data) => {
           this.foundVersion = data;
+          this.isAlreadyChecked();
         },
         (exception) => {
           this.versionError = "There is no information about the country. If you are logged in, you can add one.";
@@ -70,25 +71,52 @@ export class CountryVersionComponent implements OnInit {
       }
     );
     this.versionsForm = new FormGroup({
-      versionTime: new FormControl()
+      version: new FormControl()
     });
     
   }
-
-  public get isLoggedIn() : boolean {
-    return this.authService.isAuthenticated();
-  }
+  isLoggedIn!: boolean;
 
   public get versionIsFound() : boolean {
     return typeof this.foundVersion !== "undefined";
   }
 
   getSpecificVersion(){
-    this.allVersions.forEach(version => {
-      if(this.datepipe.transform(version.changeTime, 'M/d/yy, h:mm a') == this.versionsForm.value.changeTime){
-        this.router.navigate(["/country-version", this.countryId, version.id])
+    this.foundVersion = this.versionsForm.value.version;
+    this.isAlreadyChecked();
+  }
+
+  alreadyChecked!: boolean;
+
+  isAlreadyChecked(){
+    if(this.isLoggedIn){
+      this.countryService.userAlreadyChecked(this.foundVersion.id).subscribe(
+        (data) => {
+          this.alreadyChecked = data;
+        }
+      );
+    }
+    else{
+     this.alreadyChecked = false;
+    }
+  }
+
+  approve(){
+    this.countryService.approveVersion(this.foundVersion.id).subscribe(
+      () => {
+        this.foundVersion.approvesAmount += 1;
+        this.isAlreadyChecked();
       }
-    });
+    )
+  }
+
+  disapprove(){
+    this.countryService.disapproveVersion(this.foundVersion.id).subscribe(
+      () => {
+        this.foundVersion.disApprovesAmount += 1;
+        this.isAlreadyChecked();
+      }
+    )
   }
 }
   

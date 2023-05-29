@@ -1,0 +1,20 @@
+<mat-card>
+    <div class="info-container">
+        <div class="header">
+            <h1>Country: {{country.name}}, {{country.shortName}} <br>
+                Creation time: {{datepipe.transform(Post.creationTime, 'M/d/yy, h:mm a')}}</h1>
+            <button mat-raised-button id="userLink" *ngIf="isAuthor" (click)="deletePost()">
+                Delete
+            </button>
+        </div>
+        
+        <h1>Author: 
+            <button mat-raised-button id="userLink" [routerLink]="['/user-profile', Post.authorId]">
+                {{author.userName}}
+            </button>
+        </h1>
+        <mat-card-content>
+            <p>{{Post.content}}</p>
+        </mat-card-content>
+    </div>
+</mat-card>

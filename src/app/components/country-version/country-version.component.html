@@ -1,28 +1,37 @@
 <div class="chats-container">
     <div class="forms-container">
-        <button mat-raised-button [disabled]="!isLoggedIn" [routerLink]="['/create-country-version', countryId]">
-            New
-        </button>
         <form [formGroup]="versionsForm" (ngSubmit)="getSpecificVersion()" id="swtich-form"  *ngIf="versionIsFound">
             <mat-form-field appearance="outline" color="accent">
                 <mat-label>Creation time:</mat-label>
-                <mat-select  id="creationTime" formControlName="versionTime" required>
+                <mat-select  id="creationTime" formControlName="version" required>
                     <mat-option *ngFor="let version of allVersions"
-                    [value]="datepipe.transform(version.changeTime, 'M/d/yy, h:mm a')">
+                    [value]="version">
                     {{ datepipe.transform(version.changeTime, 'M/d/yy, h:mm a') }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
               <button mat-raised-button [disabled]="!versionsForm.valid"> Switch </button>
         </form>
+        <button mat-raised-button [disabled]="!isLoggedIn" [routerLink]="['/create-country-version', countryId]">
+            New
+        </button>
     </div>
     <p class="error-message" *ngIf="versionError != ''">
         {{versionError}}
     </p>
     <div class="version-container" *ngIf="versionIsFound">
         <mat-card class="main-card">
-            <h1>{{foundCountry.name}}, {{foundCountry.shortName}} from
-                {{datepipe.transform(foundVersion.changeTime, 'M/d/yy, h:mm a')}}</h1>
+            <div class="info-container">
+                <h1>{{foundCountry.name}}, {{foundCountry.shortName}} from
+                    {{datepipe.transform(foundVersion.changeTime, 'M/d/yy, h:mm a')}}</h1>
+                <h1>Author: 
+                    <button mat-raised-button id="userLink" [routerLink]="['/user-profile', foundVersion.authorId]">
+                        {{foundVersion.authorUsername}}
+                    </button>
+                </h1>
+                
+            </div>
+            
             <mat-card>
                 Registration information:<br>
                 {{foundVersion.registrationInfo}}
@@ -43,6 +52,18 @@
                 Support information:<br>
                 {{foundVersion.supportInfo}}
             </mat-card>
+            <h1>Note: you can vote only once.</h1>
+            <div class="approves">
+                <button mat-icon-button [disabled]="alreadyChecked || !isLoggedIn" (click)="approve()">
+                    <mat-icon>thumb_up_alt</mat-icon>
+                </button>
+                {{foundVersion.approvesAmount}}
+                <button mat-icon-button [disabled]="alreadyChecked || !isLoggedIn" (click)="disapprove()">
+                    <mat-icon>thumb_down_alt</mat-icon>
+                </button>
+                {{foundVersion.disApprovesAmount}}
+            </div>
+            
         </mat-card>
     </div>
 </div>

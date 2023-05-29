@@ -84,113 +84,103 @@ export class RegisterComponent implements OnInit {
     this.countryService.getCountryByName(this.registerForm.value.originalCountry).subscribe(
       (data) => {
         this.originalCountryId = data.id;
-      },
-      (exception) => {
-        this.error = Error.returnErrorMessage(exception);
+        this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
+          (data) => {
+            this.currentCountryId = data.id;
+            this.authService.register({
+              phoneNumber: this.registerForm.value.phoneNumber,
+              userName: this.registerForm.value.userName,
+              firstName: this.registerForm.value.firstName,
+              lastName: this.registerForm.value.lastName,
+              password: this.registerForm.value.password,
+              birthday: this.registerForm.value.birthday,
+              gender: this.registerForm.value.gender,
+              originalCountryId: this.originalCountryId,
+              currentCountryId: this.originalCountryId
+            }).subscribe(
+                () => {
+                    this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(
+                      (data) => {
+                          this.newUser = data;
+                          this.defaultMigrant = {
+                            isOfficialRefugee: false,
+                            isForcedMigrant: false,
+                            isCommonMigrant: false,
+                            familyStatus: "Single",
+                            amountOfChildren: 0,
+                            isEmployed: false,
+                            housing: "None",
+                            userId: this.newUser.id
+                          }
+                          this.migrantService.createMigrant(this.defaultMigrant).subscribe(
+                            () => {
+                              alert("You have created your account, now continue with more detailed migrant information.")
+                              this.router.navigate(['/update-migrant', this.newUser.id]);
+                            }
+                          )
+                      },
+                  ); 
+                },
+                (exception) => {
+                  this.error = Error.returnErrorMessage(exception);
+                  
+                }
+            );
+          }
+        )
       }
     )
-    this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
-      (data) => {
-        this.currentCountryId = data.id;
-      },
-      (exception) => {
-        this.error = Error.returnErrorMessage(exception);
-      }
-    )
-    this.authService.register({
-      phoneNumber: this.registerForm.value.phoneNumber,
-      userName: this.registerForm.value.userName,
-      firstName: this.registerForm.value.firstName,
-      lastName: this.registerForm.value.lastName,
-      password: this.registerForm.value.password,
-      birthday: this.registerForm.value.birthday,
-      gender: this.registerForm.value.gender,
-      originalCountryId: this.originalCountryId,
-      currentCountryId: this.originalCountryId
-    }).subscribe(
-        () => {
-            this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(
-              (data) => {
-                  this.newUser = data;
-                  this.defaultMigrant = {
-                    isOfficialRefugee: false,
-                    isForcedMigrant: false,
-                    isCommonMigrant: false,
-                    familyStatus: "Single",
-                    amountOfChildren: 0,
-                    isEmployed: false,
-                    housing: "None",
-                    userId: this.newUser.id
-                  }
-                  this.migrantService.createMigrant(this.defaultMigrant).subscribe(
-                    () => {
-                      alert("You have created your account, now continue with more detailed migrant information.")
-                      this.router.navigate(['/update-migrant', this.newUser.id]);
-                    }
-                  )
-              },
-          ); 
-        },
-        (exception) => {
-          this.error = Error.returnErrorMessage(exception);
-          
-        }
-    );
   }
 
   registerVolunteer(){
     this.countryService.getCountryByName(this.registerForm.value.originalCountry).subscribe(
       (data) => {
         this.originalCountryId = data.id;
+        this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
+          (data) => {
+            this.currentCountryId = data.id;
+            this.authService.register({
+              phoneNumber: this.registerForm.value.phoneNumber,
+              userName: this.registerForm.value.userName,
+              firstName: this.registerForm.value.firstName,
+              lastName: this.registerForm.value.lastName,
+              password: this.registerForm.value.password,
+              birthday: this.registerForm.value.birthday,
+              gender: this.registerForm.value.gender,
+              originalCountryId: this.originalCountryId,
+              currentCountryId: this.currentCountryId
+            }).subscribe(
+                () => {
+                    this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(
+                      (data) => {
+                          this.newUser = data;
+                          this.defaultVolunteer = {
+                            isATranslator: false,
+                            isOrganisation: false,
+                            hasAPlace: false,
+                            userId: this.newUser.id
+                          }
+                          this.volunteerServidce.createVolunteer(this.defaultVolunteer).subscribe(
+                            () => {
+                              alert("You have created your account, now continue with more detailed volunteer information.")
+                              this.router.navigate(['/update-volunteer', this.newUser.id]);
+                            }
+                          )
+                      },
+                  ); 
+                },
+                (exception) => {
+                  this.error = Error.returnErrorMessage(exception);
+                  
+                }
+            );
+          }
+        )
       },
       (exception) => {
         this.error = Error.returnErrorMessage(exception);
       }
     )
-    this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
-      (data) => {
-        this.currentCountryId = data.id;
-      },
-      (exception) => {
-        this.error = Error.returnErrorMessage(exception);
-      }
-    )
-    this.authService.register({
-      phoneNumber: this.registerForm.value.phoneNumber,
-      userName: this.registerForm.value.userName,
-      firstName: this.registerForm.value.firstName,
-      lastName: this.registerForm.value.lastName,
-      password: this.registerForm.value.password,
-      birthday: this.registerForm.value.birthday,
-      gender: this.registerForm.value.gender,
-      originalCountryId: this.originalCountryId,
-      currentCountryId: this.currentCountryId
-    }).subscribe(
-        () => {
-            this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(
-              (data) => {
-                  this.newUser = data;
-                  this.defaultVolunteer = {
-                    isATranslator: false,
-                    isOrganisation: false,
-                    hasAPlace: false,
-                    userId: this.newUser.id
-                  }
-                  this.volunteerServidce.createVolunteer(this.defaultVolunteer).subscribe(
-                    () => {
-                      alert("You have created your account, now continue with more detailed volunteer information.")
-                      this.router.navigate(['/update-volunteer', this.newUser.id]);
-                    }
-                  )
-              },
-          ); 
-        },
-        (exception) => {
-          this.error = Error.returnErrorMessage(exception);
-          
-        }
-    );
   }
-
 }
   

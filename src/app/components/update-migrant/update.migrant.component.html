@@ -8,6 +8,7 @@
             <input matInput id="amountOfChildren" formControlName="amountOfChildren"
                 type="number"
                 min="0"
+                [value]="amountOfChildren"
                 required>
                 <mat-error>
                     Enter a number
@@ -16,7 +17,7 @@
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Family status:</mat-label>
-            <mat-select  id="familyStatus" formControlName="familyStatus" required>
+            <mat-select  id="familyStatus" formControlName="familyStatus" required [value]="familyStatus">
                 <mat-option *ngFor="let status of familyStatuses" [value]="status">{{ status }}</mat-option>
             </mat-select>
             <mat-error>
@@ -26,7 +27,7 @@
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Housing type:</mat-label>
-            <mat-select  id="housing" formControlName="housing" required>
+            <mat-select  id="housing" formControlName="housing" required [value]="housing">
                 <mat-option *ngFor="let housing of housingTypes" [value]="housing">{{ housing }}</mat-option>
             </mat-select>
             <mat-error>

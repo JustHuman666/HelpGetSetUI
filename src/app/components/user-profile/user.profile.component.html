@@ -1,13 +1,51 @@
-<mat-card>
-    <mat-card-content>
-        <div class="header">
-            <h1>{{foundUser.userName}}</h1>
-        </div>
-        <p>{{foundUser.firstName}} {{foundUser.lastName}}</p>
-        <p>Phone number: {{foundUser.phoneNumber}}</p>
-        <p>Came from: {{originalCountry.name}}, {{originalCountry.shortName}}</p>
-        <p>Currently in: {{currentCountry.name}}, {{currentCountry.shortName}}</p>
-        <p *ngIf="isMigrant" >Is a migrant </p>
-        <p *ngIf="isVolunteer" >Is a volunteer </p>
-    </mat-card-content>
-</mat-card>
+<div class="profile-container">
+    <mat-card class="profile-info">
+        <mat-card-content>
+            <div class="header">
+                <h1>{{foundUser.userName}}</h1>
+                <p *ngIf="isMigrant" >Is a migrant </p>
+                <p *ngIf="isVolunteer" >Is a volunteer </p>
+            </div>
+            <p>Name: {{foundUser.firstName}} {{foundUser.lastName}}</p>
+            <p>Birthday: {{datepipe.transform(foundUser.birthday, 'M/d/yy, h:mm a')}}</p>
+            <p>Is from: {{originalCountry.name}}, {{originalCountry.shortName}}</p>
+            <p>Currently in: {{currentCountry.name}}, {{currentCountry.shortName}}</p>
+            <div *ngIf="isMigrant">
+                <p *ngIf="migrant.isOfficialRefugee">Is official refugee </p>
+                <p *ngIf="migrant.isForcedMigrant">Is a forced migrant </p>
+                <p *ngIf="migrant.isCommonMigrant">Is a common migrant in troubles </p>
+                <p>Family status: {{migrant.familyStatus}}</p>
+                <p>Amount of children: {{migrant.amountOfChildren}}</p>
+                <p *ngIf="migrant.isEmployed">Currently is employed</p>
+                <p *ngIf="!migrant.isEmployed"> Currently is not employed</p>
+                <p>Lives in: {{migrant.housing}}</p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="profile-info">
+        <mat-card-content>
+            <div class="header">
+                <h1>{{foundUser.userName}}'s posts</h1>
+                <one-post *ngFor="let post of foundUser.posts" [postId] = "post"></one-post>
+            </div>
+        </mat-card-content>
+    </mat-card>
+   
+    <!-- <mat-card class="profile-container" *ngFor="let post of userPosts">
+        <mat-card-content>
+            <div class="header">
+                <h1>{{chat.chatName}}</h1>
+                <p>Users in chat: {{chat.userIds.length}}</p>
+                <button mat-icon-button [matMenuTriggerFor]="menu" id="menu-button">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/chat-messages', chat.id]">Open chat</button>
+                <button mat-menu-item (click)="clearHistory(chat.id)">Clear chat history</button>
+                <button mat-menu-item (click)="deleteChat(chat.id)">Delete chat</button>
+                <button mat-menu-item (click)="deleteLoggedUserFromChat(chat.id)">Quit from chat</button>
+                </mat-menu>
+            </div>
+        </mat-card-content> -->
+    <!-- </mat-card> -->
+</div>

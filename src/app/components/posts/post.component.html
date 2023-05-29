@@ -1,0 +1,93 @@
+<div class="posts-container">
+    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="updateAll()">
+        <mat-tab label="Default">
+            <p class="error-message" *ngIf="defaultPostsError != ''">
+                There is no post found.
+            </p>
+            <div *ngIf="defaultPostsError == ''">
+                <one-post *ngFor="let post of defaultPosts" [postId] = "post.id"></one-post>
+            </div>
+        </mat-tab>
+        <mat-tab label="My posts" *ngIf="isLoggedIn">
+            <button mat-raised-button [disabled]="!isLoggedIn" [routerLink]="['/create-post']">
+                New
+            </button>
+            <p class="error-message" *ngIf="myPostsError != ''">
+                You do not have any posts yet. You can add one.
+            </p>
+            <div *ngIf="myPostsError == ''">
+                <one-post *ngFor="let post of myPosts" [postId] = "post.id"></one-post>
+            </div>
+        </mat-tab>
+        <mat-tab label="Countries posts">
+            <form [formGroup]="countryForm" (ngSubmit)="getPostsByCountry()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Connected country:</mat-label>
+                    <mat-select  id="country" formControlName="countryId" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose country name
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!countryForm.valid">
+                    Search
+                    <mat-icon>sync</mat-icon>
+                </button>
+            </form>
+            <div *ngIf="countryError == ''">
+                <one-post *ngFor="let post of countryPosts" [postId] = "post.id"></one-post>
+            </div>
+        </mat-tab>
+        <mat-tab label="Volunteers posts">
+            <form [formGroup]="volunteerForm" (ngSubmit)="getVolunteersPostsByCountry()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Connected country:</mat-label>
+                    <mat-select  id="country" formControlName="countryId" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose country name
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!countryForm.valid">
+                    Search
+                    <mat-icon>sync</mat-icon>
+                </button>
+            </form>
+            <div *ngIf="volunteerError == ''">
+                <one-post *ngFor="let post of volunteersPosts" [postId] = "post.id"></one-post>
+            </div>
+        </mat-tab>
+        <mat-tab label="Migrants posts">
+            <form [formGroup]="migrantForm" (ngSubmit)="getMigrantsPostsByCountry()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Connected country:</mat-label>
+                    <mat-select  id="country" formControlName="countryId" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose country name
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!countryForm.valid">
+                    Search
+                    <mat-icon>sync</mat-icon>
+                </button>
+            </form>
+            <div *ngIf="migrantError == ''">
+                <one-post *ngFor="let post of migrantPosts" [postId] = "post.id"></one-post>
+            </div>
+        </mat-tab>
+        
+      </mat-tab-group>  
+</div>
