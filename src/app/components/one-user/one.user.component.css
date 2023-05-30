@@ -8,9 +8,10 @@
 }
 .header{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    padding-left: 2vw;
     width: 96%;
 }
 h1{

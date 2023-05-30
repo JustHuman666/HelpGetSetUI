@@ -99,15 +99,16 @@
     height: auto;
     align-items: center;
 }
-input{
+textarea{
     margin-left: 1vw;
     height: 80%;
-    width: 78%;
+    width: 76%;
     max-height: 80%;
-    overflow: auto;
     background-color: #353535;
     color: white;
+    resize: none;
 }
+
 #userName{
     margin: 0;
     width: 100%;

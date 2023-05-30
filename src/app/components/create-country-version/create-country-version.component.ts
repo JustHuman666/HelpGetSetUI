@@ -33,12 +33,11 @@ export class CreateCountryVersionComponent implements OnInit {
   ngOnInit(): void {
     this.countryId = this.route.snapshot.params['id'];
     this.versionForm = new FormGroup({
-      userName: new FormControl(),
-        registrationInfo: new FormControl(),
-        employmentInfo: new FormControl(),
-        taxInfo: new FormControl(),
-        insuranceInfo: new FormControl(),
-        supportInfo: new FormControl()
+      registrationInfo: new FormControl(),
+      employmentInfo: new FormControl(),
+      taxInfo: new FormControl(),
+      insuranceInfo: new FormControl(),
+      supportInfo: new FormControl()
     })
     this.countryService.getLatestCountryVersionById(this.countryId).subscribe(
       (data) => {

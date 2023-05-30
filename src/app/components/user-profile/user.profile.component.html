@@ -3,8 +3,9 @@
         <mat-card-content>
             <div class="header">
                 <h1>{{foundUser.userName}}</h1>
-                <p *ngIf="isMigrant" >Is a migrant </p>
-                <p *ngIf="isVolunteer" >Is a volunteer </p>
+                <p id="without-margin" *ngIf="isMigrant" >Migrant </p>
+                <p id="without-margin" *ngIf="isVolunteer" >Volunteer </p>
+                <button mat-raised-button id="userLink" *ngIf="isLoggedIn" (click)="goToChat()">Chat</button>
             </div>
             <p>Name: {{foundUser.firstName}} {{foundUser.lastName}}</p>
             <p>Birthday: {{datepipe.transform(foundUser.birthday, 'M/d/yy, h:mm a')}}</p>
@@ -24,9 +25,11 @@
     </mat-card>
     <mat-card class="profile-info">
         <mat-card-content>
-            <div class="header">
+            <div class="custom-header">
                 <h1>{{foundUser.userName}}'s posts</h1>
-                <one-post *ngFor="let post of foundUser.posts" [postId] = "post"></one-post>
+                <div>
+                    <one-post *ngFor="let post of userPosts" [postId] = "post.id"></one-post>
+                </div>
             </div>
         </mat-card-content>
     </mat-card>

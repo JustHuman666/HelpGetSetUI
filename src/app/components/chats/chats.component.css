@@ -91,3 +91,9 @@
 ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
     color: #353535;
 }
+
+.header h1{
+    width: 50%;
+    overflow: hidden;
+    word-break: unset;
+}

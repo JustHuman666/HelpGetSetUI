@@ -35,12 +35,12 @@ export class CountryService{
         return this.http.get<GetCountry>(`${this.apiUrl}/api/Country/ShortName/${name}`)
     } 
 
-    getUsersFromCountry(id: number):Observable<GetUser>{
-        return this.http.get<GetUser>(`${this.apiUrl}/api/Country/UsersFrom/${id}`)
+    getUsersFromCountry(id: number):Observable<GetUser[]>{
+        return this.http.get<GetUser[]>(`${this.apiUrl}/api/Country/UsersFrom/${id}`)
     } 
 
-    getUsersInCountry(id: number):Observable<GetUser>{
-        return this.http.get<GetUser>(`${this.apiUrl}/api/Country/UsersIn/${id}`)
+    getUsersInCountry(id: number):Observable<GetUser[]>{
+        return this.http.get<GetUser[]>(`${this.apiUrl}/api/Country/UsersIn/${id}`)
     } 
 
     getAllOrganisations():Observable<GetUser[]>{

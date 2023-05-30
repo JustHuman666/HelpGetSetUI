@@ -19,6 +19,7 @@ import { CreateCountryVersionComponent } from './components/create-country-versi
 import { PostsComponent } from './components/posts/post.component';
 import { OnePostComponent } from './components/one-post/one.post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 const routes: Routes = [
@@ -38,7 +39,9 @@ const routes: Routes = [
   {path: "create-country-version/:id", component: CreateCountryVersionComponent, canActivate: [IsLoggedIn]},
   {path: "posts", component: PostsComponent},
   {path: "one-post", component: OnePostComponent},
-  {path: "create-post", component: CreatePostComponent}
+  {path: "create-post", component: CreatePostComponent, canActivate: [IsLoggedIn]},
+  {path: "users", component: UsersComponent},
+  {path: "one-user", component: OnePostComponent},
 ];
 
 @NgModule({

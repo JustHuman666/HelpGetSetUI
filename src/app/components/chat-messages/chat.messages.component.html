@@ -24,7 +24,7 @@
     </div>
     <div class="footer">
         <form id="message-form">
-            <input type="text" matInput placeholder="  Write your message" [formControl]="text">
+            <textarea matInput placeholder="  Write your message" [formControl]="text"></textarea>
             <button mat-raised-button (click)="sendMessage()" id="send-button"> 
                 Send
             </button>

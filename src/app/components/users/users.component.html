@@ -1,0 +1,156 @@
+<div class="posts-container">
+    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="updateAll()">
+        <mat-tab label="All users">
+            <p class="error-message" *ngIf="defaultUsersError != ''">
+                There is no user found.
+            </p>
+            <div *ngIf="defaultUsersError == ''">
+                <one-user *ngFor="let user of defaultUsers" [userId] = "user.id"></one-user>
+            </div>
+        </mat-tab>
+        <mat-tab label="By names">
+            <form [formGroup]="userForm" (ngSubmit)="getUserByUserName()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>User name:</mat-label>
+                    <input matInput id="userName" formControlName="username"
+                            required>
+                            <mat-error>
+                                Invalid user name
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="byNameError !=''">
+                    {{byNameError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!userForm.valid">
+                    Search by username
+                    <mat-icon>search</mat-icon>
+                </button>
+            </form>
+            <form [formGroup]="userByFullNameForm" (ngSubmit)="getUserByFullName()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>First name:</mat-label>
+                    <input matInput id="firstName" formControlName="firstName" required>
+                            <mat-error>
+                                Invalid first name
+                            </mat-error>
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Last name:</mat-label>
+                    <input matInput id="lastName" formControlName="lastName"
+                            required>
+                            <mat-error>
+                                Invalid last name
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="byNameError !=''">
+                    {{byNameError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!userForm.valid">
+                    Search by full name
+                    <mat-icon>search</mat-icon>
+                </button>
+            </form>
+            <div *ngIf="byNameError == ''">
+                <one-user *ngFor="let user of byNameUsers" [userId] = "user.id"></one-user>
+            </div>
+        </mat-tab>
+        <mat-tab label="By country">
+            <form [formGroup]="countryForm" (ngSubmit)="getUsersByCountry()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Connected country:</mat-label>
+                    <mat-select  id="country" formControlName="countryId" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose country name
+                            </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>In or from:</mat-label>
+                    <mat-select  id="inOrFrom" formControlName="inOrFrom" required>
+                        <mat-option *ngFor="let choice of inOrFrom" [value]="choice">{{ choice }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose if users are in or from country
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!countryForm.valid">
+                    Search
+                    <mat-icon>search</mat-icon>
+                </button>
+            </form>
+            <div *ngIf="countryError == ''">
+                <one-user *ngFor="let user of countryUsers" [userId] = "user.id"></one-user>
+            </div>
+        </mat-tab>
+        <mat-tab label="Volunteers">
+            <form [formGroup]="volunteerForm" (ngSubmit)="getVolunteersByFilter()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Connected country:</mat-label>
+                    <mat-select  id="country" formControlName="countryId" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose country name
+                            </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Volunteer type:</mat-label>
+                    <mat-select  id="volunteerType" formControlName="volunteerType" required>
+                        <mat-option *ngFor="let choice of volunteerType" [value]="choice">{{ choice }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose volunteer type
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="volunteerError!=''">
+                    {{volunteerError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!volunteerForm.valid">
+                    Search
+                    <mat-icon>search</mat-icon>
+                </button>
+            </form>
+            <div *ngIf="volunteerError == ''">
+                <one-user *ngFor="let user of volunteers" [userId] = "user.id"></one-user>
+            </div>
+        </mat-tab>
+        <mat-tab label="Migrants">
+            <form [formGroup]="migrantForm" (ngSubmit)="getMigrantsByFilter()" id="update-form">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Connected country:</mat-label>
+                    <mat-select  id="country" formControlName="countryId" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose country name
+                            </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Migrant type:</mat-label>
+                    <mat-select  id="migrantType" formControlName="migrantType" required>
+                        <mat-option *ngFor="let choice of migrantType" [value]="choice">{{ choice }}</mat-option>
+                    </mat-select>
+                            <mat-error>
+                                Choose migrant type
+                            </mat-error>
+                </mat-form-field>
+                <mat-error *ngIf="migrantError !=''">
+                    {{migrantError}}
+                  </mat-error>
+                <button mat-raised-button [disabled]="!migrantForm.valid">
+                    Search
+                    <mat-icon>search</mat-icon>
+                </button>
+            </form>
+            <div *ngIf="migrantError == ''">
+                <one-user *ngFor="let user of migrants" [userId] = "user.id"></one-user>
+            </div>
+        </mat-tab>
+        
+      </mat-tab-group>  
+</div>

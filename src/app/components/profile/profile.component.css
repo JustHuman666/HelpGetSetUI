@@ -16,23 +16,24 @@ h2{
 }
 h2, h3{
     color: white;
-    margin-left: 1vw;
+    margin-left: 3vw;
 }
 
 #update-form{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 50%;
+    width: 70vw;
     height: auto;
     color: aliceblue;
     font-size: medium;
 }
 
 .mat-mdc-form-field{
-    height: 12vh;
+    height: 14vh;
     width: 100%;
     font-size: x-large;
+    margin-bottom: 4vh;
 }
 
 .mat-mdc-form-field-error{
@@ -80,5 +81,10 @@ h2, h3{
     height: 5vh;
 }
 .addition-button{
-    width: 50%;
+    width: 70vw;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix{
+    padding-top: 3vh;
+    padding-bottom: 3vh;
 }

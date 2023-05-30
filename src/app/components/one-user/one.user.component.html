@@ -1,0 +1,14 @@
+<mat-card>
+    <div class="info-container">
+        <div class="header">
+            <h1>Username: 
+                <button mat-raised-button id="userLink" [routerLink]="['/user-profile', User.id]">
+                    {{User.userName}}
+                </button>
+            </h1>
+            <h1> Full name: {{User.firstName}} {{User.lastName}}</h1>
+            <h1 *ngIf="isMigrant">Migrant</h1>
+            <h1 *ngIf="isVolunteer">Volunteer</h1>
+        </div>
+    </div>
+</mat-card>

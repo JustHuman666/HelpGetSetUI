@@ -75,7 +75,8 @@ h3{
 }
 #update{
     margin-top: 1vh;
-    width: 20vw;
+    width: 40vw;
+    margin-bottom: 1vh;
     display: inline-flex;
     height: 10vh;
     font-size: medium;

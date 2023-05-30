@@ -31,18 +31,18 @@ export class PostsComponent implements OnInit {
   isLoggedIn!: boolean;
 
   defaultPostsError: string = '';
-  defaultPosts!: GetPost[];
+  defaultPosts: GetPost[] = [];
 
   myPostsError: string = '';
-  myPosts!: GetPost[];
+  myPosts: GetPost[] = [];
 
-  countryPosts!: GetPost[];
+  countryPosts: GetPost[] = [];
   countryError: string = '';
 
-  volunteersPosts!: GetPost[];
+  volunteersPosts: GetPost[] = [];
   volunteerError: string = '';
 
-  migrantPosts!: GetPost[];
+  migrantPosts: GetPost[] = [];
   migrantError: string = '';
   
   countries!: GetCountry[];
@@ -76,7 +76,7 @@ export class PostsComponent implements OnInit {
             this.getVolunteersPosts();
           },
           (exception) => {
-            this.myPostsError = "No post found for country";
+            this.myPostsError = "No post found";
           }
         )
       });
@@ -115,10 +115,21 @@ export class PostsComponent implements OnInit {
         (data) => {
           this.defaultPosts = data;
           this.defaultPostsError = '';
+        },
+        (exception) => {
+          this.postService.getAllPosts().subscribe(
+            (data) => {
+              this.defaultPosts = data;
+              this.defaultPostsError = '';
+            },
+            (exception) => {
+              this.defaultPostsError = "No post found";
+            }
+          );
         }
       );
     }
-    else if(this.defaultPosts.length == 0 || !this.isLoggedIn) {
+    else{
       this.postService.getAllPosts().subscribe(
         (data) => {
           this.defaultPosts = data;
@@ -128,7 +139,7 @@ export class PostsComponent implements OnInit {
           this.defaultPostsError = "No post found";
         }
       );
-    }
+    };
   }
 
   getPostsByCountry(){

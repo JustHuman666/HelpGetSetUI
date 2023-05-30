@@ -49,6 +49,8 @@ import { CreateCountryVersionComponent } from './components/create-country-versi
 import { PostsComponent } from './components/posts/post.component';
 import { OnePostComponent } from './components/one-post/one.post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { UsersComponent } from './components/users/users.component';
+import { OneUserComponent } from './components/one-user/one.user.component';
 
 export function getToken() {
   return localStorage.getItem(UNIQUE_USER_TOKEN_KEY);
@@ -74,7 +76,9 @@ export function getToken() {
     CreateCountryVersionComponent,
     PostsComponent,
     OnePostComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    UsersComponent,
+    OneUserComponent
   ],
   imports: [
     BrowserModule,

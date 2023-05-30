@@ -38,10 +38,28 @@
     margin-bottom: 1vh;
 }
 
+.custom-header{
+    flex-direction: column;
+}
+
 p{
     font-size: medium;
 }
 
 .mat-mdc-card-content{
     width: 100%;
+}
+
+.mat-mdc-card{
+    width: 95vw;
+}
+
+
+#userLink{
+    background-color: #29cbcb6b;
+    margin-left: 1vw;
+}
+
+#without-margin{
+    margin-bottom: 0;
 }
