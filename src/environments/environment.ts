@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    helpGetSetApi: 'https://localhost:5001',
-    tokenDomain: 'https://localhost:5001'
+    helpGetSetApi: 'https://helpgetset-production-56ea.up.railway.app',
+    tokenDomain: 'https://helpgetset-production-56ea.up.railway.app'
   };
   

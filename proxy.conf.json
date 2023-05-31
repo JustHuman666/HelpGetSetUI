@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://localhost:5001",
+    "target": "https://helpgetset-production-56ea.up.railway.app",
     "secure": false,
     "changeOrigin": true
   }
