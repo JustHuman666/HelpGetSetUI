@@ -21,6 +21,11 @@
                 <p *ngIf="!migrant.isEmployed"> Currently is not employed</p>
                 <p>Lives in: {{migrant.housing}}</p>
             </div>
+            <div *ngIf="isVolunteer">
+                <p *ngIf="volunteer.isOrganisation">Is representative of organisation </p>
+                <p *ngIf="volunteer.hasAPlace">Has a place to host someone </p>
+                <p *ngIf="volunteer.isATranslator">Can translate for migrants </p>
+            </div>
         </mat-card-content>
     </mat-card>
     <mat-card class="profile-info">

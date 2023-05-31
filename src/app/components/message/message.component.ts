@@ -45,10 +45,13 @@ export class MessageComponent implements OnInit {
         this.sendingTime = this.datepipe.transform(this.Message.sendingTime, 'M/d/yy, h:mm a')!;
     }
     
+    isDeleted!: boolean;
+    chatId!: number;
     deleteMessage(){
         this.messageService.deleteMessage(this.Message.id).subscribe(
             (data) => {
-               window.location.reload();
+                this.isDeleted = true;
+                this.chatId = this.Message.chatId;
             },
             (exception) => {
                 this.messageError = Error.returnErrorMessage(exception);
