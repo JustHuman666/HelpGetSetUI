@@ -49,7 +49,7 @@
 #line{
   border: 2px solid white;
   height: 1px;
-  width: 60%;
+  width: 80vw;
   margin-bottom: 4vh;
 }
 .mat-button:hover{

@@ -51,7 +51,7 @@ export class MessageComponent implements OnInit {
         this.messageService.deleteMessage(this.Message.id).subscribe(
             (data) => {
                 this.isDeleted = true;
-                this.chatId = this.Message.chatId;
+                window.location.reload()
             },
             (exception) => {
                 this.messageError = Error.returnErrorMessage(exception);
