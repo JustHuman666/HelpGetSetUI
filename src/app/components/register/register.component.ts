@@ -41,11 +41,9 @@ export class RegisterComponent implements OnInit {
       this.countries = [];
       this.countryService.getAllCountries().subscribe(
         (data) => {
-          if(data.length >= 0){
-            data.forEach(country => {
-              this.countries.push(country.name)
-            });
-          }
+          data.forEach(country => {
+            this.countries.push(country.name)
+          });
         }
       )
     }

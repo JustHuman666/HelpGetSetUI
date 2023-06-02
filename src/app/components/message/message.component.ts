@@ -34,7 +34,6 @@ export class MessageComponent implements OnInit {
     sendingTime!: string;
 
     ngOnInit(): void {
-        this.userService
         this.messageError = '';
         this.userService.getUserById(this.Message.senderId).subscribe(
             (data) => {
