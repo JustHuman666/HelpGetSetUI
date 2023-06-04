@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/profile'])
       }, 
       (exception) => {
-        this.loginError = Error.returnErrorMessage(exception);;
+        this.loginError = Error.returnErrorMessage(exception);
       });
   }
 }

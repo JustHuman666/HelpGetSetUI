@@ -38,6 +38,9 @@
                     <mat-icon>sync</mat-icon>
                 </button>
             </form>
+            <p class="error-message" *ngIf="countryPosts.length == 0">
+                There is no post found.
+            </p>
             <div *ngIf="countryError == ''">
                 <one-post *ngFor="let post of countryPosts" [postId] = "post.id"></one-post>
             </div>
@@ -61,6 +64,9 @@
                     <mat-icon>sync</mat-icon>
                 </button>
             </form>
+            <p class="error-message" *ngIf="volunteersPosts.length == 0">
+                There is no post found.
+            </p>
             <div *ngIf="volunteerError == ''">
                 <one-post *ngFor="let post of volunteersPosts" [postId] = "post.id"></one-post>
             </div>
@@ -84,6 +90,9 @@
                     <mat-icon>sync</mat-icon>
                 </button>
             </form>
+            <p class="error-message" *ngIf="migrantPosts.length == 0">
+                There is no post found.
+            </p>
             <div *ngIf="migrantError == ''">
                 <one-post *ngFor="let post of migrantPosts" [postId] = "post.id"></one-post>
             </div>

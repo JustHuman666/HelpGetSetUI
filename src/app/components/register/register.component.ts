@@ -83,8 +83,8 @@ export class RegisterComponent implements OnInit {
       (data) => {
         this.originalCountryId = data.id;
         this.countryService.getCountryByName(this.registerForm.value.currentCountry).subscribe(
-          (data) => {
-            this.currentCountryId = data.id;
+          (current) => {
+            this.currentCountryId = current.id;
             this.authService.register({
               phoneNumber: this.registerForm.value.phoneNumber,
               userName: this.registerForm.value.userName,
@@ -94,7 +94,7 @@ export class RegisterComponent implements OnInit {
               birthday: this.registerForm.value.birthday,
               gender: this.registerForm.value.gender,
               originalCountryId: this.originalCountryId,
-              currentCountryId: this.originalCountryId
+              currentCountryId: this.currentCountryId
             }).subscribe(
                 () => {
                     this.userService.getUserProfileByUserName(this.registerForm.value.userName).subscribe(

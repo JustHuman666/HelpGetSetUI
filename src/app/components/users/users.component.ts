@@ -153,6 +153,7 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  fullNameError = ''
   getUserByFullName(){
     this.userService.getUserProfilesByFullName(
       this.userByFullNameForm.value.firstName,
@@ -160,10 +161,13 @@ export class UsersComponent implements OnInit {
       ).subscribe(
       (profiles) => {
         this.byNameUsers = profiles;
-        this.byNameError = '';
+        this.fullNameError = '';
+        if(profiles.length == 0){
+          this.fullNameError = "No user is found";
+        }
       },
-      (eception) => {
-        this.byNameError = "No user is found";
+      (exception) => {
+        this.fullNameError = "No user is found";
       }
     );
   }
@@ -176,6 +180,9 @@ export class UsersComponent implements OnInit {
           this.userService.getUserById(volunteer.userId).subscribe(
             (profile) => {
               foundVolunteers.push(profile);
+            },
+            (exception) => {
+              this.volunteerError = "No user found";
             }
           )
         });
@@ -200,6 +207,9 @@ export class UsersComponent implements OnInit {
             );
           });
           this.volunteers = foundVolunteers;
+          if(foundVolunteers.length == 0){
+            this.volunteerError = "No user found"
+          };
         }
       );
     }
@@ -217,6 +227,9 @@ export class UsersComponent implements OnInit {
             );
           });
           this.volunteers = foundVolunteers;
+          if(foundVolunteers.length == 0){
+            this.volunteerError = "No user found"
+          };
         }
       );
     }
@@ -234,6 +247,9 @@ export class UsersComponent implements OnInit {
             );
           });
           this.volunteers = foundVolunteers;
+          if(foundVolunteers.length == 0){
+            this.volunteerError = "No user found"
+          };
         }
       );
     }
@@ -251,6 +267,9 @@ export class UsersComponent implements OnInit {
           )
         });
         this.migrants = foundMigrants;
+        if(foundMigrants.length == 0){
+          this.volunteerError = "No user found"
+        };
       }
     )
   }
@@ -271,6 +290,9 @@ export class UsersComponent implements OnInit {
             );
           });
           this.migrants = foundMigrants;
+          if(foundMigrants.length == 0){
+            this.volunteerError = "No user found"
+          };
         }
       );
     }
@@ -288,6 +310,9 @@ export class UsersComponent implements OnInit {
             );
           });
           this.volunteers = foundMigrants;
+          if(foundMigrants.length == 0){
+            this.volunteerError = "No user found"
+          };
         }
       );
     }
@@ -305,6 +330,9 @@ export class UsersComponent implements OnInit {
             );
           });
           this.migrants = foundMigrants;
+          if(foundMigrants.length == 0){
+            this.volunteerError = "No user found"
+          };
         }
       );
     }

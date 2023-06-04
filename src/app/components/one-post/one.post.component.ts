@@ -63,14 +63,14 @@ export class OnePostComponent implements OnInit{
     }
 
     deletePost(){
-        this.postService.deletePost(this.Post.id).subscribe(
-            () => {
-                alert("Post is deleted");
-                window.location.reload();
-            }
-        )
+        if(confirm("Are you sure, you want to delete your post?")){
+            this.postService.deletePost(this.Post.id).subscribe(
+                () => {
+                    alert("Post is deleted");
+                    window.location.reload();
+                }
+            )
+        }
     }
-
-    
 }
   

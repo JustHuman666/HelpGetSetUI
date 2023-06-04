@@ -77,7 +77,7 @@
         <mat-error *ngIf="error!=''">
             {{error}}
         </mat-error>
-        <button id="update" mat-raised-button [disabled]="!updateForm.valid"> 
+        <button id="update" mat-raised-button [disabled]="!updateForm.valid && updateForm.value.amountOfChildren != ''"> 
             Confirm
         </button>
       </form>

@@ -43,15 +43,15 @@
                                 Invalid last name
                             </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="byNameError !=''">
-                    {{byNameError}}
+                <mat-error *ngIf="fullNameError!=''">
+                    {{fullNameError}}
                   </mat-error>
-                <button mat-raised-button [disabled]="!userForm.valid">
+                <button mat-raised-button [disabled]="!userByFullNameForm.valid">
                     Search by full name
                     <mat-icon>search</mat-icon>
                 </button>
             </form>
-            <div *ngIf="byNameError == ''">
+            <div *ngIf="fullNameError == ''">
                 <one-user *ngFor="let user of byNameUsers" [userId] = "user.id"></one-user>
             </div>
         </mat-tab>
@@ -83,6 +83,9 @@
                     <mat-icon>search</mat-icon>
                 </button>
             </form>
+            <p class="error-message" *ngIf="countryError != ''">
+                There is no user found.
+            </p>
             <div *ngIf="countryError == ''">
                 <one-user *ngFor="let user of countryUsers" [userId] = "user.id"></one-user>
             </div>
@@ -115,6 +118,9 @@
                     <mat-icon>search</mat-icon>
                 </button>
             </form>
+            <p class="error-message" *ngIf="volunteerError != ''">
+                There is no user found.
+            </p>
             <div *ngIf="volunteerError == ''">
                 <one-user *ngFor="let user of volunteers" [userId] = "user.id"></one-user>
             </div>
@@ -147,6 +153,9 @@
                     <mat-icon>search</mat-icon>
                 </button>
             </form>
+            <p class="error-message" *ngIf="migrantError != ''">
+                There is no user found.
+            </p>
             <div *ngIf="migrantError == ''">
                 <one-user *ngFor="let user of migrants" [userId] = "user.id"></one-user>
             </div>

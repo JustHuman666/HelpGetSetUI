@@ -138,8 +138,6 @@ export class ChatMessagesComponent implements OnInit {
             }
         );
     }
-
-
     
 }
   

@@ -131,6 +131,7 @@ export class ProfileComponent implements OnInit {
     deleteAccount(){
         if(confirm("Are you sure, you want to delete your account?")) {
             this.userService.deleteThisUser().subscribe(() => {
+              alert("Your profile was successfully deleted, but you still can use the service and register again.");
               this.authService.logOut();
               this.router.navigate(['']);
             });

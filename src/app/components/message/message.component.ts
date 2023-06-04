@@ -47,15 +47,18 @@ export class MessageComponent implements OnInit {
     isDeleted!: boolean;
     chatId!: number;
     deleteMessage(){
-        this.messageService.deleteMessage(this.Message.id).subscribe(
-            (data) => {
-                this.isDeleted = true;
-                window.location.reload()
-            },
-            (exception) => {
-                this.messageError = Error.returnErrorMessage(exception);
-            }
-        );
+        if(confirm("Are you sure, you want to delete this message?")){
+            this.messageService.deleteMessage(this.Message.id).subscribe(
+                (data) => {
+                    this.isDeleted = true;
+                    window.location.reload()
+                },
+                (exception) => {
+                    this.messageError = Error.returnErrorMessage(exception);
+                }
+            );
+        }
+        
     }
 }
   
