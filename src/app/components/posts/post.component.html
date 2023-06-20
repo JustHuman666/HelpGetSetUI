@@ -30,6 +30,9 @@
                                 Choose country name
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!countryForm.valid">
                     Search
                     <mat-icon>sync</mat-icon>
@@ -55,6 +58,9 @@
                                 Choose country name
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!volunteerForm.valid">
                     Search
                     <mat-icon>sync</mat-icon>
@@ -78,6 +84,9 @@
                                 Choose country name
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!migrantForm.valid">
                     Search
                     <mat-icon>sync</mat-icon>

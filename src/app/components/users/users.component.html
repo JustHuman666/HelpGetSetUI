@@ -18,6 +18,9 @@
                                 Invalid user name
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="byNameError !=''">
+                    {{byNameError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!userForm.valid">
                     Search by username
                     <mat-icon>search</mat-icon>
@@ -40,15 +43,15 @@
                                 Invalid last name
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="fullNameError!=''">
+                    {{fullNameError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!userByFullNameForm.valid">
                     Search by full name
                     <mat-icon>search</mat-icon>
                 </button>
             </form>
-            <p class="error-message" *ngIf="byNameError != ''">
-                There is no user found.
-            </p>
-            <div *ngIf="byNameError == ''">
+            <div *ngIf="fullNameError == ''">
                 <one-user *ngFor="let user of byNameUsers" [user] = "user"></one-user>
             </div>
         </mat-tab>
@@ -72,6 +75,9 @@
                                 Choose if users are in or from country
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="countryError !=''">
+                    {{countryError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!countryForm.valid">
                     Search
                     <mat-icon>search</mat-icon>
@@ -104,6 +110,9 @@
                                 Choose volunteer type
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="volunteerError!=''">
+                    {{volunteerError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!volunteerForm.valid">
                     Search
                     <mat-icon>search</mat-icon>
@@ -136,6 +145,9 @@
                                 Choose migrant type
                             </mat-error>
                 </mat-form-field>
+                <mat-error *ngIf="migrantError !=''">
+                    {{migrantError}}
+                  </mat-error>
                 <button mat-raised-button [disabled]="!migrantForm.valid">
                     Search
                     <mat-icon>search</mat-icon>

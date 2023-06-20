@@ -120,9 +120,6 @@ export class UsersComponent implements OnInit {
       (users) => {
         this.defaultUsers = users;
         this.defaultUsersError = '';
-        if (users.length == 0){
-          this.defaultUsersError = "No user found";
-        }
       },
       (exception) => {
         this.defaultUsersError = "No user found";
@@ -135,10 +132,6 @@ export class UsersComponent implements OnInit {
       this.countryService.getUsersInCountry(this.countryForm.value.countryId).subscribe(
         (users) => {
           this.countryUsers = users;
-          this.countryError = '';
-          if (users.length == 0){
-            this.countryError = "No user found";
-          }
         },
         (exception) => {
           this.countryError = "No user found";
@@ -148,10 +141,6 @@ export class UsersComponent implements OnInit {
       this.countryService.getUsersFromCountry(this.countryForm.value.countryId).subscribe(
         (users) => {
           this.countryUsers = users;
-          this.countryError = '';
-          if (users.length == 0){
-            this.countryError = "No user found";
-          }
         },
         (exception) => {
           this.countryError = "No user found";
@@ -172,6 +161,7 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  fullNameError = ''
   getUserByFullName(){
     this.userService.getUserProfilesByFullName(
       this.userByFullNameForm.value.firstName,
@@ -179,13 +169,13 @@ export class UsersComponent implements OnInit {
       ).subscribe(
       (profiles) => {
         this.byNameUsers = profiles;
-        this.byNameError = '';
+        this.fullNameError = '';
         if(profiles.length == 0){
-          this.byNameError = "No user is found";
+          this.fullNameError = "No user is found";
         }
       },
       (exception) => {
-        this.byNameError = "No user is found";
+        this.fullNameError = "No user is found";
       }
     );
   }
@@ -194,10 +184,6 @@ export class UsersComponent implements OnInit {
     this.volunteerService.getAllVolunteers().subscribe(
       (data) => {
         this.volunteers = data;
-        this.volunteerError = '';
-          if (data.length == 0){
-            this.volunteerError = "No user found";
-          }
       },
       (exception) => {
         this.volunteerError = "No user found";
@@ -216,7 +202,7 @@ export class UsersComponent implements OnInit {
           });
           this.volunteers = foundVolunteers;
           if(foundVolunteers.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -231,7 +217,7 @@ export class UsersComponent implements OnInit {
           });
           this.volunteers = foundVolunteers;
           if(foundVolunteers.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -246,7 +232,7 @@ export class UsersComponent implements OnInit {
           });
           this.volunteers = foundVolunteers;
           if(foundVolunteers.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -257,10 +243,6 @@ export class UsersComponent implements OnInit {
     this.migrantService.getAllMigrants().subscribe(
       (data) => {
         this.migrants = data;
-        this.migrantError = '';
-          if (data.length == 0){
-            this.migrantError = "No user found";
-          }
       },
       (exception) => {
         this.migrantError = "No user found";
@@ -278,7 +260,6 @@ export class UsersComponent implements OnInit {
             }
           });
           this.migrants = foundMigrants;
-          this.migrantError = "";
           if(foundMigrants.length == 0){
             this.migrantError = "No user found"
           };
@@ -294,7 +275,6 @@ export class UsersComponent implements OnInit {
             }
           });
           this.migrants = foundMigrants;
-          this.migrantError = "";
           if(foundMigrants.length == 0){
             this.migrantError = "No user found"
           };
@@ -307,7 +287,6 @@ export class UsersComponent implements OnInit {
           data.forEach(migrant => {
             if(migrant.currentCountryId == this.migrantForm.value.countryId){
               foundMigrants.push(migrant);
-              this.migrantError = "";
             }
           });
           this.migrants = foundMigrants;
