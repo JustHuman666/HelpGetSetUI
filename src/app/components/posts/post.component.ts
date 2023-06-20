@@ -193,13 +193,10 @@ export class PostsComponent implements OnInit {
   getVolunteersPostsByCountry(){
     this.postService.getVolunteersPostsByCountry(this.volunteerForm.value.countryId).subscribe(
       (posts) => {
-        if(posts.length == 0){
-          this.volunteerError = "No volunteers post is found";
-        }
-        else {
-          this.volunteersPosts = posts;
-          this.volunteerError = '';
-        }
+        this.volunteersPosts = posts;
+      },
+      (exception) => {
+        this.volunteersPosts = [];
       }
     );
   }
@@ -219,13 +216,10 @@ export class PostsComponent implements OnInit {
   getMigrantsPostsByCountry(){
     this.postService.getMigrantsPostsByCountry(this.migrantForm.value.countryId).subscribe(
       (posts) => {
-        if(posts.length == 0){
-          this.migrantError = "No migrant post is found";
-        }
-        else{
-          this.migrantPosts = posts;
-          this.migrantError = '';
-        }
+        this.migrantPosts = posts;
+      },
+      (exception) => {
+        this.migrantPosts = [];
       }
     );
   }

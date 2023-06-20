@@ -30,9 +30,6 @@
                                 Choose country name
                             </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="countryError !=''">
-                    {{countryError}}
-                  </mat-error>
                 <button mat-raised-button [disabled]="!countryForm.valid">
                     Search
                     <mat-icon>sync</mat-icon>
@@ -42,9 +39,7 @@
                 There is no post found.
             </p>
             <div *ngIf="countryError == ''">
-                <one-post *ngFor="let post of countryPosts" [post] = "post">
-                    <div> FDFMVmdv,</div>
-                </one-post>
+                <one-post *ngFor="let post of countryPosts" [post] = "post"></one-post>
             </div>
         </mat-tab>
         <mat-tab label="Volunteers posts">
@@ -58,9 +53,6 @@
                                 Choose country name
                             </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="countryError !=''">
-                    {{countryError}}
-                  </mat-error>
                 <button mat-raised-button [disabled]="!volunteerForm.valid">
                     Search
                     <mat-icon>sync</mat-icon>
@@ -69,7 +61,7 @@
             <p class="error-message" *ngIf="volunteersPosts.length == 0">
                 There is no post found.
             </p>
-            <div *ngIf="volunteerError == ''">
+            <div *ngIf="volunteersPosts.length != 0">
                 <one-post *ngFor="let post of volunteersPosts" [post] = "post"></one-post>
             </div>
         </mat-tab>
@@ -84,9 +76,6 @@
                                 Choose country name
                             </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="countryError !=''">
-                    {{countryError}}
-                  </mat-error>
                 <button mat-raised-button [disabled]="!migrantForm.valid">
                     Search
                     <mat-icon>sync</mat-icon>
@@ -95,7 +84,7 @@
             <p class="error-message" *ngIf="migrantPosts.length == 0">
                 There is no post found.
             </p>
-            <div *ngIf="migrantError == ''">
+            <div *ngIf="migrantPosts.length != 0">
                 <one-post *ngFor="let post of migrantPosts" [post] = "post"></one-post>
             </div>
         </mat-tab>

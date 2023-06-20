@@ -198,12 +198,10 @@ export class UsersComponent implements OnInit {
           data.forEach(volunteer => {
             if(volunteer.currentCountryId == this.volunteerForm.value.countryId){
               foundVolunteers.push(volunteer);
+              this.volunteerError = ""
             }
           });
           this.volunteers = foundVolunteers;
-          if(foundVolunteers.length == 0){
-            this.migrantError = "No user found"
-          };
         }
       );
     }
@@ -216,9 +214,6 @@ export class UsersComponent implements OnInit {
             }
           });
           this.volunteers = foundVolunteers;
-          if(foundVolunteers.length == 0){
-            this.migrantError = "No user found"
-          };
         }
       );
     }
@@ -231,9 +226,6 @@ export class UsersComponent implements OnInit {
             }
           });
           this.volunteers = foundVolunteers;
-          if(foundVolunteers.length == 0){
-            this.migrantError = "No user found"
-          };
         }
       );
     }
@@ -243,6 +235,7 @@ export class UsersComponent implements OnInit {
     this.migrantService.getAllMigrants().subscribe(
       (data) => {
         this.migrants = data;
+        this.migrantError = "";
       },
       (exception) => {
         this.migrantError = "No user found";
@@ -260,9 +253,6 @@ export class UsersComponent implements OnInit {
             }
           });
           this.migrants = foundMigrants;
-          if(foundMigrants.length == 0){
-            this.migrantError = "No user found"
-          };
         }
       );
     }
@@ -275,9 +265,6 @@ export class UsersComponent implements OnInit {
             }
           });
           this.migrants = foundMigrants;
-          if(foundMigrants.length == 0){
-            this.migrantError = "No user found"
-          };
         }
       );
     }
@@ -290,9 +277,6 @@ export class UsersComponent implements OnInit {
             }
           });
           this.migrants = foundMigrants;
-          if(foundMigrants.length == 0){
-            this.migrantError = "No user found"
-          };
         }
       );
     }
