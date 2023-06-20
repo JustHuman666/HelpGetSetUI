@@ -114,6 +114,9 @@ export class PostsComponent implements OnInit {
       (posts) => {
         this.myPosts = posts;
         this.myPostsError = '';
+        if(posts.length == 0){
+          this.myPostsError = "No post found for country";
+        }
       },
       (exception) => {
         this.myPostsError = "No post found for country";
@@ -159,6 +162,9 @@ export class PostsComponent implements OnInit {
       (data) => {
         this.defaultPosts = data;
         this.defaultPostsError = '';
+        if(data.length == 0){
+          this.defaultPostsError = "No post found";
+        }
       },
       (exception) => {
         this.defaultPostsError = "No post found";
@@ -171,6 +177,9 @@ export class PostsComponent implements OnInit {
       (data) => {
         this.countryPosts = data;
         this.countryError = ''
+        if(data.length == 0){
+          this.countryError = "No post found";
+        }
       },
       (exception) => {
         this.countryError = "No post found for country";
@@ -183,6 +192,9 @@ export class PostsComponent implements OnInit {
       (data) => {
         this.volunteersPosts = data;
         this.volunteerError = '';
+        if(data.length == 0){
+          this.volunteerError = "No post found";
+        }
       },
       (exception) => {
         this.volunteerError = "No volunteers post is found";
@@ -209,6 +221,9 @@ export class PostsComponent implements OnInit {
       (data) => {
         this.migrantPosts = data;
         this.migrantError = '';
+        if(data.length == 0){
+          this.migrantError = "No post found";
+        }
       },
       (exception) => {
         this.migrantError = "No migrants post is found";
