@@ -6,13 +6,10 @@ import { UserService } from "src/app/services/user-service/user.service";
 import { AuthService } from "src/app/services/auth-service/auth.service";
 import { Error } from "src/app/error-handle/error";
 import { CountryService } from "src/app/services/country-service/country.service";
-import { GetUser } from "src/app/interfaces/user/get-user";
-import { LoggedUserProfile } from "src/app/interfaces/user/logged-user-profile";
 import { GetCountry } from "src/app/interfaces/country/get-country";
-import { MatDatepicker } from "@angular/material/datepicker";
 import { MigrantService } from "src/app/services/migrant-service/migrant.service";
-import { Volunteer } from "src/app/interfaces/volunteer/volunteer";
 import { VolunteerService } from "src/app/services/volunteer-service/volunteer.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'profile',
@@ -30,7 +27,7 @@ export class ProfileComponent implements OnInit {
       private authService: AuthService,
       private countryService: CountryService,
       private migrantService: MigrantService,
-      private volunteerService: VolunteerService,
+      private datepipe: DatePipe,
       private router: Router) {
         let today = new Date();
         this.currentDate = today.toISOString().split('T')[0];
@@ -41,6 +38,16 @@ export class ProfileComponent implements OnInit {
             this.countries = data;
           }
         )
+        this.updateForm = new FormGroup({
+          userName: new FormControl(),
+          firstName: new FormControl(),
+          lastName: new FormControl(),
+          phoneNumber: new FormControl(),
+          gender: new FormControl(),
+          birthday: new FormControl(),
+          currentCountryId: new FormControl(),
+          originalCountryId: new FormControl()
+        });
     }
     originalCountry!: GetCountry;
 
@@ -56,7 +63,7 @@ export class ProfileComponent implements OnInit {
 
     isAdmin: boolean = false;
 
-    birthday!: Date;
+    birthday!: string;
 
     foundGender!: string;
 
@@ -66,33 +73,20 @@ export class ProfileComponent implements OnInit {
 
     updateForm!: FormGroup;
 
-    isVolunteer!: boolean;
-
     isMigrant!: boolean;
 
     ngOnInit(): void {
-      this.updateForm = new FormGroup({
-        userName: new FormControl(),
-        firstName: new FormControl(),
-        lastName: new FormControl(),
-        phoneNumber: new FormControl(),
-        gender: new FormControl(),
-        birthday: new FormControl(),
-        currentCountryId: new FormControl(),
-        originalCountryId: new FormControl()
-      });
       this.userService.getThisUserProfile().subscribe(
         (profile) => {
           this.userId = profile.id;
-          this.checkIfMigrant();
-          this.checkIfVolunteer();
           this.userName = profile.userName;
           this.firstName = profile.firstName;
           this.lastName = profile.lastName;
           this.birthday = profile.birthday;
-          this.foundGender = profile.gender;
+          this.foundGender = this.genders[profile.gender];
           this.userId = profile.id;
           this.phoneNumber = profile.phoneNumber;
+          this.checkIfMigrantOrVolunteer();
           this.countryService.getCountryById(profile.originalCountryId).subscribe(
             (country) => {
               this.originalCountry = country;
@@ -105,14 +99,6 @@ export class ProfileComponent implements OnInit {
             }
           );
         });
-      this.checkIfMigrant();
-      this.checkIfVolunteer();
-      this.userService.getUserRoles().subscribe(roles => {
-          if(roles.includes("Admin")){
-            this.isAdmin = true;
-          }
-        });
-
       this.error = '';
     }
 
@@ -159,32 +145,16 @@ export class ProfileComponent implements OnInit {
         gender: this.foundGender,
         currentCountryId: this.currentCountry.id,
         originalCountryId: this.originalCountry.id,
-        birthday: null
+        birthday: this.birthday.split("T")[0]
       });
     }
   
-    checkIfMigrant(){
-        this.migrantService.getMigrantByUserId(this.userId).subscribe(
-            (data) => {
-                if(data.id > 0){
-                    this.isMigrant = true;
-                }
-            }
-        );
-        this.isMigrant = false;
-    }
-
-    checkIfVolunteer(){
-        this.volunteerService.getVolunteerByUserId(this.userId).subscribe(
-            (data) => {
-                if(data.id > 0){
-                    this.isVolunteer = true;
-                }
-                
-            }
-        );
-        this.isVolunteer = false;
-    }
-   
+    checkIfMigrantOrVolunteer(){
+      this.migrantService.isMigrant(this.userId).subscribe(
+          (data) => {
+              this.isMigrant = data;
+          }
+      );
+  }
 }
   

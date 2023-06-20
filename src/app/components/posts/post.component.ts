@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { HttpClient } from '@angular/common/http';
 
 import { UserService } from "src/app/services/user-service/user.service";
 import { AuthService } from "src/app/services/auth-service/auth.service";
@@ -11,6 +9,7 @@ import { LoggedUserProfile } from "src/app/interfaces/user/logged-user-profile";
 import { FormControl, FormGroup } from "@angular/forms";
 import { GetCountry } from "src/app/interfaces/country/get-country";
 import { CountryService } from "src/app/services/country-service/country.service";
+import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
     selector: 'posts',
@@ -55,6 +54,12 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn =  this.authService.isAuthenticated();
+    
+    this.countryService.getAllCountries().subscribe(
+      (data) => {
+        this.countries = data;
+      }
+    );
     this.countryForm = new FormGroup({
       countryId: new FormControl()
     });
@@ -64,82 +69,101 @@ export class PostsComponent implements OnInit {
     this.migrantForm = new FormGroup({
       countryId: new FormControl()
     });
-    this.userService.getThisUserProfile().subscribe(
-      (profile) => {
-        this.user = profile;
-        this.postService.getPostsByUserId(profile.id).subscribe(
-          (posts) => {
-            this.myPosts = posts;
-            this.myPostsError = '';
-            this.getDefaultPosts();
-            this.getMigrantsPosts();
-            this.getVolunteersPosts();
-          },
-          (exception) => {
-            this.myPostsError = "No post found";
-          }
-        )
-      });
-    this.countryService.getAllCountries().subscribe(
-      (data) => {
-        this.countries = data;
-      }
-    )
-  }
-  updateAll(){
     this.getDefaultPosts();
-    this.getUsersPosts();
+    if (this.isLoggedIn){
+      this.userService.getThisUserProfile().subscribe(
+        (profile) => {
+          this.user = profile;
+          this.getUsersPosts();
+        }
+      );
+    }
     this.getMigrantsPosts();
     this.getVolunteersPosts();
   }
 
-  getUsersPosts(){
-    this.userService.getThisUserProfile().subscribe(
-      (profile) => {
-        this.user = profile;
-        this.postService.getPostsByUserId(profile.id).subscribe(
-          (posts) => {
-            this.myPosts = posts;
-            this.myPostsError = '';
-          },
-          (exception) => {
-            this.myPostsError = "No post found for country";
-          }
-        )
-      });
+  onTabChange(event: MatTabChangeEvent) {
+    const selectedIndex = event.index;
+    if (selectedIndex == 0){
+      this.getDefaultPosts();
+    }
+    if (!this.isLoggedIn){
+      if (selectedIndex == 3){
+        this.getMigrantsPosts();
+      }
+      else if (selectedIndex == 2){
+        this.getVolunteersPosts();
+      };
+    }
+    else if (this.isLoggedIn) {
+      if (selectedIndex == 1){
+        this.getUsersPosts();
+      }
+      else if (selectedIndex == 4){
+        this.getMigrantsPosts();
+      }
+      else if (selectedIndex == 3){
+        this.getVolunteersPosts();
+      };
+    }
   }
 
+  getUsersPosts(){
+    this.myPosts = [];
+    this.postService.getPostsByUserId(this.user.id).subscribe(
+      (posts) => {
+        this.myPosts = posts;
+        this.myPostsError = '';
+      },
+      (exception) => {
+        this.myPostsError = "No post found for country";
+      }
+    );
+  }
+
+  // getDefaultPosts(){
+  //   if(this.isLoggedIn){
+  //     this.postService.getPostsByCountryId(this.user.currentCountryId).subscribe(
+  //       (data) => {
+  //         this.defaultPosts = data;
+  //         this.defaultPostsError = '';
+  //       },
+  //       (exception) => {
+  //         this.postService.getAllPosts().subscribe(
+  //           (data) => {
+  //             this.defaultPosts = data;
+  //             this.defaultPostsError = '';
+  //           },
+  //           (exception) => {
+  //             this.defaultPostsError = "No post found";
+  //           }
+  //         );
+  //       }
+  //     );
+  //   }
+  //   else{
+  //     this.postService.getAllPosts().subscribe(
+  //       (data) => {
+  //         this.defaultPosts = data;
+  //         this.defaultPostsError = '';
+  //       },
+  //       (exception) => {
+  //         this.defaultPostsError = "No post found";
+  //       }
+  //     );
+  //   };
+  // }
+
   getDefaultPosts(){
-    if(this.isLoggedIn){
-      this.postService.getPostsByCountryId(this.user.currentCountryId).subscribe(
-        (data) => {
-          this.defaultPosts = data;
-          this.defaultPostsError = '';
-        },
-        (exception) => {
-          this.postService.getAllPosts().subscribe(
-            (data) => {
-              this.defaultPosts = data;
-              this.defaultPostsError = '';
-            },
-            (exception) => {
-              this.defaultPostsError = "No post found";
-            }
-          );
-        }
-      );
-    }
-    else{
-      this.postService.getAllPosts().subscribe(
-        (data) => {
-          this.defaultPosts = data;
-          this.defaultPostsError = '';
-        },
-        (exception) => {
-          this.defaultPostsError = "No post found";
-        }
-      );
-    };
+    this.postService.getAllPosts().subscribe(
+      (data) => {
+        this.defaultPosts = data;
+        this.defaultPostsError = '';
+      },
+      (exception) => {
+        this.defaultPostsError = "No post found";
+      }
+    );
   }
 
   getPostsByCountry(){
@@ -166,25 +190,20 @@ export class PostsComponent implements OnInit {
     )
   }
 
-  volunteerPostsByCountry: GetPost[] = [];
   getVolunteersPostsByCountry(){
-    this.postService.getVolunteersPosts().subscribe(
-      (data) => {
-        data.forEach(post => {
-          if(post.countryId == this.volunteerForm.value.countryId){
-            this.volunteerPostsByCountry.push(post);
-          }
-        });
-        this.volunteersPosts = this.volunteerPostsByCountry;
-        this.volunteerError = '';
-      },
-      (exception) => {
-        this.volunteerError = "No volunteers post is found";
+    this.postService.getVolunteersPostsByCountry(this.volunteerForm.value.countryId).subscribe(
+      (posts) => {
+        if(posts.length == 0){
+          this.volunteerError = "No volunteers post is found";
+        }
+        else {
+          this.volunteersPosts = posts;
+          this.volunteerError = '';
+        }
       }
-    )
+    );
   }
 
-  migrantPostsByCountry: GetPost[] = [];
   getMigrantsPosts(){
     this.postService.getMigrantsPosts().subscribe(
       (data) => {
@@ -192,26 +211,23 @@ export class PostsComponent implements OnInit {
         this.migrantError = '';
       },
       (exception) => {
-        this.volunteerError = "No volunteers post is found";
+        this.migrantError = "No migrants post is found";
       }
-    )
+    );
   }
 
   getMigrantsPostsByCountry(){
-    this.postService.getMigrantsPosts().subscribe(
-      (data) => {
-        data.forEach(post => {
-          if(post.countryId == this.migrantForm.value.countryId){
-            this.migrantPostsByCountry.push(post);
-          }
-        });
-        this.migrantPosts = this.migrantPostsByCountry;
-        this.migrantError = '';
-      },
-      (exception) => {
-        this.migrantError = "No volunteers post is found";
+    this.postService.getMigrantsPostsByCountry(this.migrantForm.value.countryId).subscribe(
+      (posts) => {
+        if(posts.length == 0){
+          this.migrantError = "No migrant post is found";
+        }
+        else{
+          this.migrantPosts = posts;
+          this.migrantError = '';
+        }
       }
-    )
+    );
   }
 }
   

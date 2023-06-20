@@ -1,11 +1,11 @@
 <div class="posts-container">
-    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="updateAll()">
+    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabChange($event)">
         <mat-tab label="Default">
             <p class="error-message" *ngIf="defaultPostsError != ''">
                 There is no post found.
             </p>
             <div *ngIf="defaultPostsError == ''">
-                <one-post *ngFor="let post of defaultPosts" [postId] = "post.id"></one-post>
+                <one-post *ngFor="let post of defaultPosts" [post] = "post"></one-post>
             </div>
         </mat-tab>
         <mat-tab label="My posts" *ngIf="isLoggedIn">
@@ -16,7 +16,7 @@
                 You do not have any posts yet. You can add one.
             </p>
             <div *ngIf="myPostsError == ''">
-                <one-post *ngFor="let post of myPosts" [postId] = "post.id"></one-post>
+                <one-post *ngFor="let post of myPosts" [post] = "post"></one-post>
             </div>
         </mat-tab>
         <mat-tab label="Countries posts">
@@ -38,11 +38,13 @@
                     <mat-icon>sync</mat-icon>
                 </button>
             </form>
-            <p class="error-message" *ngIf="countryPosts.length == 0">
+            <p class="error-message" *ngIf="countryError !=''">
                 There is no post found.
             </p>
             <div *ngIf="countryError == ''">
-                <one-post *ngFor="let post of countryPosts" [postId] = "post.id"></one-post>
+                <one-post *ngFor="let post of countryPosts" [post] = "post">
+                    <div> FDFMVmdv,</div>
+                </one-post>
             </div>
         </mat-tab>
         <mat-tab label="Volunteers posts">
@@ -68,7 +70,7 @@
                 There is no post found.
             </p>
             <div *ngIf="volunteerError == ''">
-                <one-post *ngFor="let post of volunteersPosts" [postId] = "post.id"></one-post>
+                <one-post *ngFor="let post of volunteersPosts" [post] = "post"></one-post>
             </div>
         </mat-tab>
         <mat-tab label="Migrants posts">
@@ -94,7 +96,7 @@
                 There is no post found.
             </p>
             <div *ngIf="migrantError == ''">
-                <one-post *ngFor="let post of migrantPosts" [postId] = "post.id"></one-post>
+                <one-post *ngFor="let post of migrantPosts" [post] = "post"></one-post>
             </div>
         </mat-tab>
         

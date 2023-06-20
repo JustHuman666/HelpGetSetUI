@@ -53,26 +53,25 @@ export class UserProfileComponent implements OnInit{
                             (country) => {
                                 this.originalCountry = country;
                             }
-                        )
+                        );
+                        
                     }
                 );
                 this.userService.getThisUserProfile().subscribe(
                     (profile) => {
                         this.theUser = profile;
+                        this.checkIfExists();
                     }
                 );
-                this.postService.getPostsByUserId(data.id).subscribe(
+                this.postService.getPostsByUserId(this.foundUser.id).subscribe(
                     (posts) => {
                         this.userPosts = posts;
                     }
                 );
-                this.checkIfExists();
+                this.checkIfMigrantOrVolunteer();
                 
             }
         );
-        this.checkIfMigrant();
-        this.checkIfVolunteer();
-       
     }
 
     isLoggedIn!: boolean;
@@ -89,29 +88,28 @@ export class UserProfileComponent implements OnInit{
 
     userId!: number;
 
-    checkIfMigrant(){
-        this.migrantService.getMigrantByUserId(this.userId).subscribe(
+    checkIfMigrantOrVolunteer(){
+        this.migrantService.isMigrant(this.userId).subscribe(
             (data) => {
-                if(data.id > 0){
-                    this.isMigrant = true;
-                    this.migrant = data
-                }
-            }
-        );
-        this.isMigrant = false;
-    }
+                this.isMigrant = data;
+                this.isVolunteer = !data;
 
-    checkIfVolunteer(){
-        this.volunteerService.getVolunteerByUserId(this.userId).subscribe(
-            (data) => {
-                if(data.id > 0){
-                    this.isVolunteer = true;
-                    this.volunteer = data
+                if (data) {
+                    this.migrantService.getMigrantByUserId(this.foundUser.id).subscribe(
+                        (migrant) => {
+                            this.migrant = migrant;
+                        }
+                    )
                 }
-                
+                else {
+                    this.volunteerService.getVolunteerByUserId(this.foundUser.id).subscribe(
+                        (volunteer) => {
+                            this.volunteer = volunteer;
+                        }
+                    )
+                }
             }
         );
-        this.isVolunteer = false;
     }
 
     theUser!: LoggedUserProfile;
@@ -141,12 +139,11 @@ export class UserProfileComponent implements OnInit{
             }
         );
     }
-    createNewChat(){
-        let ids = [this.theUser.id, this.foundUser.id]
 
+    createNewChat(){
         let chatModel: CreateChat = {
             chatName : `${this.theUser.userName} and ${this.foundUser.userName}`,
-            userIds: ids
+            userIds: [this.theUser.id, this.foundUser.id]
         }
         this.chatService.createChat(chatModel).subscribe(
             (data) => {
@@ -155,7 +152,9 @@ export class UserProfileComponent implements OnInit{
                         chats.forEach(chat => {
                             if(chat.userIds.includes(this.foundUser.id) && chat.userIds.includes(this.theUser.id)){
                                 if(chat.userIds.length == 2){
-                                    this.router.navigate(["/chat-messages", chat.id]);
+                                    this.chatExists = true;
+                                    this.chatId = chat.id;
+                                    this.router.navigate(["/chat-messages", this.chatId]);
                                 }
                             }
                         });

@@ -4,8 +4,8 @@ export interface LoggedUserProfile {
     phoneNumber: string;
     firstName: string;
     lastName: string;
-    birthday: Date;
-    gender: string;
+    birthday: string;
+    gender: number;
     originalCountryId: number;
     currentCountryId: number;
 

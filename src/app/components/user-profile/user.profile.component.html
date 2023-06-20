@@ -33,8 +33,8 @@
             <div class="custom-header">
                 <h1>{{foundUser.userName}}'s posts</h1>
                 <div>
-                    <one-post *ngFor="let post of userPosts" [postId] = "post.id"></one-post>
-                </div>
+                    <one-post *ngFor="let post of userPosts" [post] = "post"></one-post>
+                </div> 
             </div>
         </mat-card-content>
     </mat-card>

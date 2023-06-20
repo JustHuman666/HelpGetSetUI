@@ -1,18 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Router,  ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 
-import { UserService } from "src/app/services/user-service/user.service";
 import { AuthService } from "src/app/services/auth-service/auth.service";
-import { ChatService } from "src/app/services/chat-service/chat.service";
-import { MessageService } from "src/app/services/message-service/message.service";
-
-import { GetUser } from "src/app/interfaces/user/get-user";
 
 import { Error } from "src/app/error-handle/error";
-import { GetChat } from "src/app/interfaces/chat/get-chat";
 import { FormControl, FormGroup } from "@angular/forms";
-import { GetMessage } from "src/app/interfaces/chat/get-message";
-import { SendMessage } from "src/app/interfaces/chat/send-message";
 import { CountryService } from "src/app/services/country-service/country.service";
 import { GetCountry } from "src/app/interfaces/country/get-country";
 
@@ -31,7 +23,6 @@ export class CountriesComponent implements OnInit {
     
     ngOnInit(): void {
         this.countriesError = '';
-
         this.countryService.getAllCountries().subscribe(
             (data) => {
                 this.countries = data;
@@ -41,7 +32,6 @@ export class CountriesComponent implements OnInit {
                 this.countriesError = Error.returnErrorMessage(exception);
             }
         );
-
         this.countryForm = new FormGroup({
             countryName: new FormControl(),
             shortName: new FormControl()
@@ -50,18 +40,11 @@ export class CountriesComponent implements OnInit {
 
     countries: GetCountry[] = [];
     allCountries: GetCountry[] = [];
-
     countriesError!: string;
-
     formError!: string;
-
     countryForm!: FormGroup;
-
-    
-
     countryByName!: GetCountry;
     countryByShortName!: GetCountry;
-
     countryToReturn!: GetCountry;
 
     getCountry(){

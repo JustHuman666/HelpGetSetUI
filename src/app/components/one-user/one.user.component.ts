@@ -1,11 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 
-import { UserService } from "src/app/services/user-service/user.service";
-
-import { Error } from "src/app/error-handle/error";
-import { PostService } from "src/app/services/post-service/post.service";
-import { GetPost } from "src/app/interfaces/post/get-post";
 import { GetUser } from "src/app/interfaces/user/get-user";
 import { GetCountry } from "src/app/interfaces/country/get-country";
 import { CountryService } from "src/app/services/country-service/country.service";
@@ -22,63 +16,28 @@ import { MigrantService } from "src/app/services/migrant-service/migrant.service
 
 export class OneUserComponent implements OnInit{
 
-    constructor(private userService: UserService,
-        private volunteerService: VolunteerService,
+    constructor(private volunteerService: VolunteerService,
         private countryService: CountryService,
         public datepipe: DatePipe,
         private migrantService: MigrantService) {
            
     }
     
-    @Input() userId!: number;
-    User!: GetUser;
+    @Input() user!: GetUser;
     originalCountry!:  GetCountry;
     currentCountry!: GetCountry;
-    isMigrant!: boolean;
-    isVolunteer!: boolean;
+    isMigrant!: boolean | null;
 
     ngOnInit(): void {
-        this.userService.getUserById(this.userId).subscribe(
-            (user) => {
-                this.User = user;
-                this.countryService.getCountryById(this.User.currentCountryId).subscribe(
-                    (country) => {
-                        this.currentCountry = country;
-                        this.countryService.getCountryById(this.User.originalCountryId).subscribe(
-                            (data) => {
-                                this.originalCountry = data;
-                                this.checkIfMigrant();
-                                this.checkIfVolunteer();
-                            }
-                        );
-                    }
-                );
-            }
-        )
+        this.checkIfMigrantOrVolunteer();
     }
 
-    checkIfMigrant(){
-        this.migrantService.getMigrantByUserId(this.userId).subscribe(
+    checkIfMigrantOrVolunteer(){
+        this.migrantService.isMigrant(this.user.id).subscribe(
             (data) => {
-                if(data.id > 0){
-                    this.isMigrant = true;
-                }
+                this.isMigrant = data;
             }
         );
-        this.isMigrant = false;
     }
-
-    checkIfVolunteer(){
-        this.volunteerService.getVolunteerByUserId(this.userId).subscribe(
-            (data) => {
-                if(data.id > 0){
-                    this.isVolunteer = true;
-                }
-                
-            }
-        );
-        this.isVolunteer = false;
-    }
-    
 }
   

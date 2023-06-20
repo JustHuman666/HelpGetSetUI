@@ -45,7 +45,7 @@
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Gender:</mat-label>
-            <mat-select  id="gender" formControlName="gender" required [value]="foundGender">
+            <mat-select  id="gender" formControlName="gender" required>
                 <mat-option *ngFor="let gender of genders" [value]="gender">{{ gender }}</mat-option>
             </mat-select>
             <mat-error>
@@ -58,9 +58,9 @@
             <mat-select  id="originalCountry" formControlName="originalCountryId" required>
                 <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
             </mat-select>
-                    <mat-error>
-                        Choose country name
-                    </mat-error>
+                <mat-error>
+                    Choose country name
+                </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent">
@@ -97,8 +97,8 @@
         Update migrant information
         <mat-icon>sync</mat-icon>
     </button>
-    <button *ngIf="isVolunteer" mat-raised-button class="addition-button" [routerLink]="['/update-volunteer', userId]"> 
-        Update volunter information
+    <button *ngIf="isMigrant === false" mat-raised-button class="addition-button" [routerLink]="['/update-volunteer', userId]"> 
+        Update volunteer information
         <mat-icon>sync</mat-icon>
     </button>
     <button mat-raised-button class="addition-button" routerLink="/change-password"> 

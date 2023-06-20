@@ -22,30 +22,27 @@ export class MessageComponent implements OnInit {
     constructor(private authService: AuthService,
         private userService: UserService,
         private messageService: MessageService,
-        public datepipe: DatePipe,
-        private router: Router) {}
+        public datepipe: DatePipe) {}
 
     messageError!: string;
     
     @Input() Message!: GetMessage;
 
     userSender!: GetUser;
-
     sendingTime!: string;
+    isDeleted!: boolean;
+    chatId!: number;
 
     ngOnInit(): void {
         this.messageError = '';
         this.userService.getUserById(this.Message.senderId).subscribe(
             (data) => {
                 this.userSender = data;
+                this.sendingTime = this.datepipe.transform(this.Message.sendingTime, 'M/d/yy, h:mm a')!;
             }
         );
-
-        this.sendingTime = this.datepipe.transform(this.Message.sendingTime, 'M/d/yy, h:mm a')!;
     }
     
-    isDeleted!: boolean;
-    chatId!: number;
     deleteMessage(){
         if(confirm("Are you sure, you want to delete this message?")){
             this.messageService.deleteMessage(this.Message.id).subscribe(
@@ -58,7 +55,6 @@ export class MessageComponent implements OnInit {
                 }
             );
         }
-        
     }
 }
   

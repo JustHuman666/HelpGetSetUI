@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 
 import { UserService } from "src/app/services/user-service/user.service";
 
-import { Error } from "src/app/error-handle/error";
 import { PostService } from "src/app/services/post-service/post.service";
 import { GetPost } from "src/app/interfaces/post/get-post";
 import { GetUser } from "src/app/interfaces/user/get-user";
@@ -28,43 +27,32 @@ export class OnePostComponent implements OnInit{
            
     }
     
-    @Input() postId!: number;
-    Post!: GetPost;
+    @Input() post!: GetPost;
     author!:  GetUser;
     country!: GetCountry;
+    isAuthor!: boolean;
 
     ngOnInit(): void {
-        this.postService.getPostById(this.postId).subscribe(
-            (post) => {
-                this.Post = post;
-                this.countryService.getCountryById(this.Post.countryId).subscribe(
-                    (country) => {
-                        this.country = country;
-                        this.userService.getUserById(this.Post.authorId).subscribe(
-                            (profile) => {
-                                this.author = profile;
-                                this.checkIfAuthor();
-                            }
-                        )
+        this.countryService.getCountryById(this.post.countryId).subscribe(
+            (country) => {
+                this.country = country;
+            }
+        );
+        this.userService.getUserById(this.post.authorId).subscribe(
+            (profile) => {
+                this.author = profile;
+                this.userService.getThisUserProfile().subscribe(
+                    (user) => {
+                        this.isAuthor = user.id == profile.id;
                     }
                 );
             }
-        )
-    }
-
-    isAuthor!: boolean;
-
-    checkIfAuthor(){
-        this.userService.getThisUserProfile().subscribe(
-            (profile) => {
-                this.isAuthor = profile.id == this.Post.authorId;
-            }
-        )
+        );
     }
 
     deletePost(){
         if(confirm("Are you sure, you want to delete your post?")){
-            this.postService.deletePost(this.Post.id).subscribe(
+            this.postService.deletePost(this.post.id).subscribe(
                 () => {
                     alert("Post is deleted");
                     window.location.reload();

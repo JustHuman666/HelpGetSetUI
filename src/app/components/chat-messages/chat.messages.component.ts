@@ -30,46 +30,37 @@ export class ChatMessagesComponent implements OnInit {
         }
 
     chatError!: string;
-
     usersError!: string;
-
     userError!: string;
-
     messagesError!: string;
-
     messageError!: string;
-
     thisChatMessages: GetMessage[] = [];
-
     thisChatUsers: GetUser[] = [];
-
     text!: FormControl;
-
     userName!: FormControl;
-    
     thisChatId!: number;
-    
     thisChat!: GetChat;
     
     ngOnInit(): void {
 
         this.messagesError = '';
-
         this.usersError = '';
-
         this.userError = '';
-
         this.messageError = '';
-
         this.chatError = '';
-
         this.text = new FormControl();
-
         this.userName = new FormControl();
-
         this.thisChatId = this.route.snapshot.params['id'];
-        
         this.chatError = '';
+
+        this.messageService.getChatMessages(this.thisChatId).subscribe(
+            (data) => {
+                this.thisChatMessages = data.reverse();
+            },
+            (exception) => {
+                this.messagesError = Error.returnErrorMessage(exception);
+            }
+        );
         this.chatService.getChatById(this.thisChatId).subscribe(
             (data) => {
                 this.thisChat = data;
@@ -86,21 +77,7 @@ export class ChatMessagesComponent implements OnInit {
                 this.usersError = Error.returnErrorMessage(exception);
             }
         );
-        this.getMessages();
-        
     }
-
-    getMessages(){
-        this.messageService.getChatMessages(this.thisChatId).subscribe(
-            (data) => {
-                this.thisChatMessages = data.reverse();
-            },
-            (exception) => {
-                this.messagesError = Error.returnErrorMessage(exception);
-            }
-        );
-    }
-
     sendMessage(){
         let newMessage: SendMessage = {
             text: this.text.value,
@@ -109,7 +86,7 @@ export class ChatMessagesComponent implements OnInit {
         }
         this.messageService.sendNewMessageInChat(newMessage).subscribe(
             (data) => {
-                this.getMessages();
+                this.thisChatMessages = [data, ...this.thisChatMessages];
                 this.text.reset();
             },
             (exception) => {
@@ -120,11 +97,11 @@ export class ChatMessagesComponent implements OnInit {
 
     addNewUser(){
         this.userService.getUserProfileByUserName(this.userName.value).subscribe(
-            (data) => {
-                this.chatService.addUserInChat(this.thisChat.id, data.id).subscribe(
+            (user) => {
+                this.chatService.addUserInChat(this.thisChat.id, user.id).subscribe(
                     (data) => {
                         alert("User added.");
-                        window.location.reload();
+                        this.thisChatUsers.push(user)
                     }
                 );
             },

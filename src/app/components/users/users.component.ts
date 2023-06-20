@@ -14,6 +14,7 @@ import { CountryService } from "src/app/services/country-service/country.service
 import { GetUser } from "src/app/interfaces/user/get-user";
 import { VolunteerService } from "src/app/services/volunteer-service/volunteer.service";
 import { MigrantService } from "src/app/services/migrant-service/migrant.service";
+import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
     selector: 'users',
@@ -84,27 +85,34 @@ export class UsersComponent implements OnInit {
       countryId: new FormControl(),
       migrantType: new FormControl()
     });
+    this.userService.getAllUsers().subscribe(
+      (users) => {
+        this.defaultUsers = users;
+        this.defaultUsersError = '';
+      },
+      (exception) => {
+        this.defaultUsersError = "No user found";
+      }
+    );
     this.countryService.getAllCountries().subscribe(
       (data) => {
         this.countries = data;
-        this.userService.getAllUsers().subscribe(
-          (users) => {
-            this.defaultUsers = users;
-            this.defaultUsersError = '';
-            this.getAllMigrants();
-            this.getAllVolunteers();
-          },
-          (exception) => {
-            this.defaultUsersError = "No user found";
-          }
-        );
       }
-    )
-  }
-  updateAll(){
-    this.getAllUsers();
+    );
     this.getAllMigrants();
     this.getAllVolunteers();
+  }
+  onTabChange(event: MatTabChangeEvent) {
+    const selectedIndex = event.index;
+    if (selectedIndex == 0){
+      this.getAllUsers();
+    }
+    else if (selectedIndex == 3){
+      this.getAllVolunteers();
+    }
+    else if (selectedIndex == 4){
+      this.getAllMigrants();
+    };
   }
 
   getAllUsers(){
@@ -173,22 +181,13 @@ export class UsersComponent implements OnInit {
   }
 
   getAllVolunteers(){
-    let foundVolunteers: GetUser[] = [];
     this.volunteerService.getAllVolunteers().subscribe(
       (data) => {
-        data.forEach(volunteer => {
-          this.userService.getUserById(volunteer.userId).subscribe(
-            (profile) => {
-              foundVolunteers.push(profile);
-            },
-            (exception) => {
-              this.volunteerError = "No user found";
-            }
-          )
-        });
-        this.volunteers = foundVolunteers;
-      }
-    )
+        this.volunteers = data;
+      },
+      (exception) => {
+        this.volunteerError = "No user found";
+      });
   }
 
   getVolunteersByFilter(){
@@ -197,18 +196,13 @@ export class UsersComponent implements OnInit {
       this.volunteerService.getAllTranslators().subscribe(
         (data) => {
           data.forEach(volunteer => {
-            this.userService.getUserById(volunteer.userId).subscribe(
-              (profile) => {
-                if(profile.currentCountryId == this.volunteerForm.value.countryId)
-                {
-                  foundVolunteers.push(profile);
-                }
-              }
-            );
+            if(volunteer.currentCountryId == this.volunteerForm.value.countryId){
+              foundVolunteers.push(volunteer);
+            }
           });
           this.volunteers = foundVolunteers;
           if(foundVolunteers.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -217,18 +211,13 @@ export class UsersComponent implements OnInit {
       this.volunteerService.getAllForHousing().subscribe(
         (data) => {
           data.forEach(volunteer => {
-            this.userService.getUserById(volunteer.userId).subscribe(
-              (profile) => {
-                if(profile.currentCountryId == this.volunteerForm.value.countryId)
-                {
-                  foundVolunteers.push(profile);
-                }
-              }
-            );
+            if(volunteer.currentCountryId == this.volunteerForm.value.countryId){
+              foundVolunteers.push(volunteer);
+            }
           });
           this.volunteers = foundVolunteers;
           if(foundVolunteers.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -237,18 +226,13 @@ export class UsersComponent implements OnInit {
       this.volunteerService.getAllOrganisations().subscribe(
         (data) => {
           data.forEach(volunteer => {
-            this.userService.getUserById(volunteer.userId).subscribe(
-              (profile) => {
-                if(profile.currentCountryId == this.volunteerForm.value.countryId)
-                {
-                  foundVolunteers.push(profile);
-                }
-              }
-            );
+            if(volunteer.currentCountryId == this.volunteerForm.value.countryId){
+              foundVolunteers.push(volunteer);
+            }
           });
           this.volunteers = foundVolunteers;
           if(foundVolunteers.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -256,22 +240,13 @@ export class UsersComponent implements OnInit {
   }
 
   getAllMigrants(){
-    let foundMigrants: GetUser[] = [];
     this.migrantService.getAllMigrants().subscribe(
       (data) => {
-        data.forEach(migrant => {
-          this.userService.getUserById(migrant.userId).subscribe(
-            (profile) => {
-              foundMigrants.push(profile);
-            }
-          )
-        });
-        this.migrants = foundMigrants;
-        if(foundMigrants.length == 0){
-          this.volunteerError = "No user found"
-        };
-      }
-    )
+        this.migrants = data;
+      },
+      (exception) => {
+        this.migrantError = "No user found";
+      });
   }
  
   getMigrantsByFilter(){
@@ -280,18 +255,13 @@ export class UsersComponent implements OnInit {
       this.migrantService.getAllRefugees().subscribe(
         (data) => {
           data.forEach(migrant => {
-            this.userService.getUserById(migrant.userId).subscribe(
-              (profile) => {
-                if(profile.currentCountryId == this.migrantForm.value.countryId)
-                {
-                  foundMigrants.push(profile);
-                }
-              }
-            );
+            if(migrant.currentCountryId == this.migrantForm.value.countryId){
+              foundMigrants.push(migrant);
+            }
           });
           this.migrants = foundMigrants;
           if(foundMigrants.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -300,18 +270,13 @@ export class UsersComponent implements OnInit {
       this.migrantService.getAllForcedMigrants().subscribe(
         (data) => {
           data.forEach(migrant => {
-            this.userService.getUserById(migrant.userId).subscribe(
-              (profile) => {
-                if(profile.currentCountryId == this.migrantForm.value.countryId)
-                {
-                  foundMigrants.push(profile);
-                }
-              }
-            );
+            if(migrant.currentCountryId == this.migrantForm.value.countryId){
+              foundMigrants.push(migrant);
+            }
           });
-          this.volunteers = foundMigrants;
+          this.migrants = foundMigrants;
           if(foundMigrants.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );
@@ -320,18 +285,13 @@ export class UsersComponent implements OnInit {
       this.migrantService.getAllCommonMigrants().subscribe(
         (data) => {
           data.forEach(migrant => {
-            this.userService.getUserById(migrant.userId).subscribe(
-              (profile) => {
-                if(profile.currentCountryId == this.migrantForm.value.countryId)
-                {
-                  foundMigrants.push(profile);
-                }
-              }
-            );
+            if(migrant.currentCountryId == this.migrantForm.value.countryId){
+              foundMigrants.push(migrant);
+            }
           });
           this.migrants = foundMigrants;
           if(foundMigrants.length == 0){
-            this.volunteerError = "No user found"
+            this.migrantError = "No user found"
           };
         }
       );

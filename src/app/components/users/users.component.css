@@ -19,6 +19,10 @@
     height: fit-content;
     align-items: center;
     width: 90%;
+    overflow: unset;
+}
+.mat-mdc-tab-body{
+    display: flex;
 }
 
 ::ng-deep .mat-mdc-tab-body{
@@ -34,11 +38,13 @@
     display: flex;
     justify-content: center;
     width: 90%;
+    overflow: unset;
 }
 
 ::ng-deep .mat-mdc-tab-body.mat-mdc-tab-body-active{
-    overflow: hidden;
+    display: flex;
     height: fit-content;
+    overflow: unset;
 }
 .mat-mdc-raised-button{
     width: 70%;
@@ -124,4 +130,8 @@
 
 .mat-mdc-form-field-flex{
     height: 5vh;
+}
+
+::ng-deep .mat-mdc-tab-body-content{
+    overflow: unset;
 }

@@ -6,6 +6,7 @@ import { HELPGETSET_API_URL } from 'src/app/injection/injection-token';
 
 import { Migrant } from 'src/app/interfaces/migrant/migrant';
 import { CreateMigrant } from 'src/app/interfaces/migrant/create-migrant';
+import { GetUser } from 'src/app/interfaces/user/get-user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class MigrantService{
   constructor(private http: HttpClient, 
     @Inject(HELPGETSET_API_URL) private apiUrl: string) { }
 
-    getAllMigrants():Observable<Migrant[]>{
-        return this.http.get<Migrant[]>(`${this.apiUrl}/api/Migrant/All`)
+    getAllMigrants():Observable<GetUser[]>{
+        return this.http.get<GetUser[]>(`${this.apiUrl}/api/Migrant/All`)
     }
 
     getMigrantById(id: number):Observable<Migrant>{
@@ -28,16 +29,16 @@ export class MigrantService{
         return this.http.get<Migrant>(`${this.apiUrl}/api/Migrant/ByUserID/${id}`)
     } 
 
-    getAllRefugees():Observable<Migrant[]>{
-        return this.http.get<Migrant[]>(`${this.apiUrl}/api/Migrant/Refugees`)
+    getAllRefugees():Observable<GetUser[]>{
+        return this.http.get<GetUser[]>(`${this.apiUrl}/api/Migrant/Refugees`)
     }
 
-    getAllForcedMigrants():Observable<Migrant[]>{
-        return this.http.get<Migrant[]>(`${this.apiUrl}/api/Migrant/AllForced`)
+    getAllForcedMigrants():Observable<GetUser[]>{
+        return this.http.get<GetUser[]>(`${this.apiUrl}/api/Migrant/AllForced`)
     }
 
-    getAllCommonMigrants():Observable<Migrant[]>{
-        return this.http.get<Migrant[]>(`${this.apiUrl}/api/Migrant/AllCommon`)
+    getAllCommonMigrants():Observable<GetUser[]>{
+        return this.http.get<GetUser[]>(`${this.apiUrl}/api/Migrant/AllCommon`)
     }
 
     getHousingByUserId(id: number):Observable<string>{
@@ -62,5 +63,9 @@ export class MigrantService{
 
     isUserEmployed(id: number):Observable<boolean>{
         return this.http.get<boolean>(`${this.apiUrl}/api/Migrant/${id}/IsEmployed`)
+    }
+
+    isMigrant(id: number):Observable<boolean>{
+        return this.http.get<boolean>(`${this.apiUrl}/api/Migrant/${id}/Exists`)
     }
 }

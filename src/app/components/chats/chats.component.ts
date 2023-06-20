@@ -104,11 +104,9 @@ export class ChatsComponent implements OnInit {
     }
 
     createNewChat(){
-        let ids = [];
-        ids.push(this.authService.getUserId());
         let chatModel: CreateChat = {
             chatName : this.chatForm.value.chatName,
-            userIds: ids
+            userIds: []
         }
         this.chatService.createChat(chatModel).subscribe(
             (data) => {
